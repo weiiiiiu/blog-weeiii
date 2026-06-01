@@ -129,7 +129,7 @@ export default function Topbar({
         {...otherProps}
       >
         {/* Avatar / Logo */}
-        <div className="w-52.5 flex-auto items-center justify-start font-semibold max-md:w-25">
+        <div className="w-52.5 flex-auto items-center justify-start font-medium max-md:w-25">
           <Link to="/" className="flex items-center px-4">
             <NekoIcon width={36} className="shrink-0" />
             <span className="px-2 max-md:hidden">
@@ -392,7 +392,7 @@ function DesktopNav() {
       {NAV_ITEMS.map((item, index) => (
         <div
           key={item.href}
-          className="px-2 pt-0.5 font-semibold"
+          className="px-2 pt-0.5 font-medium"
           onMouseEnter={() => handleMouseEnter(index)}
         >
           <Link

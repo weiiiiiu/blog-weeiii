@@ -58,8 +58,8 @@ export default function NavCat({ items, current, setCurrent }: Props) {
             onClick={() => setCurrent(i)}
             className={`mr-4 cursor-pointer rounded-full border px-2.5 py-1.5 text-sm whitespace-nowrap transition-all duration-500 ${
               isCurrent
-                ? "border-bg-inverse bg-bg-inverse text-bg"
-                : "border-ui-line-gray-2 text-text-gray hover:bg-hover-bg"
+                ? "border-bg-inverse bg-bg-inverse text-bg shadow-sm"
+                : "border-ui-line-gray-2 text-text-gray hover:text-text-secondary hover:bg-hover-bg"
             } `}
           >
             <span>

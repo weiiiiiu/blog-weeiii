@@ -16,12 +16,12 @@ export function PostMeta({ date, categories, tags = [] }: Props) {
   return (
     <>
       {/* Date */}
-      <div className="mt-4 text-center text-sm font-semibold text-[#989898]">
+      <div className="mt-4 text-center text-sm text-[#989898]">
         {formattedDate}
       </div>
 
       {/* Categories and Tags */}
-      <div className="mt-4 mb-6 pb-6 text-center text-sm font-semibold">
+      <div className="mt-4 mb-6 pb-6 text-center text-sm">
         <div className="inline-block max-w-1/2">
           {/* Category */}
           {categories && (

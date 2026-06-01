@@ -23,16 +23,16 @@ export default function ArticleItem({ post, index }: Props) {
   return (
     <Link
       to={`/posts/${post.slug}`}
-      className="article-card group block min-h-24 cursor-pointer relative max-md:min-h-21"
+      className="article-card group relative block min-h-24 cursor-pointer max-md:min-h-21"
     >
-      <div className="py-4 pb-10 relative">
+      <div className="relative py-4 pb-10">
         {/* Meta: date + category */}
-        <div className="my-2 text-text-gray-2">
-          <span className="font-medium text-sm">
+        <div className="text-text-gray-2 my-2">
+          <span className="text-sm font-medium">
             {dateI18n(parseDate(post.date), "dateNatural")}
           </span>
-          <Folder size="1em" className="inline ml-2 mr-1 mb-0.5" />
-          <span className="font-medium text-sm inline-block">
+          <Folder size="1em" className="mr-1 mb-0.5 ml-2 inline" />
+          <span className="inline-block text-sm font-medium">
             {post.categories}
           </span>
         </div>
@@ -40,12 +40,14 @@ export default function ArticleItem({ post, index }: Props) {
         {/* Title + Description container with hover effect */}
         <div className="post-container">
           {/* Title */}
-          <span className="title text-xl font-semibold max-md:text-xl">
+          <span className="title text-xl font-medium max-md:text-xl">
             {post.title}
           </span>
 
           {/* Description */}
-          <div className="my-2 text-text-secondary">{post.description}</div>
+          <div className="text-text-secondary my-2 text-sm">
+            {post.description}
+          </div>
         </div>
       </div>
     </Link>
