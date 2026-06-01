@@ -97,7 +97,9 @@ export default function BlogPost({ loaderData }: Route.ComponentProps) {
       {/* Main article */}
       <div className="mx-auto w-170 px-5 py-15 max-xl:w-[calc(100%-480px)] max-xl:max-w-170 max-lg:w-auto max-lg:max-w-170 max-sm:w-full max-sm:py-12">
         <article className="relative">
-          <h1 className="mx-auto mt-0 mb-0 w-4/5 text-center">{post.title}</h1>
+          <h1 className="mx-auto mt-0 mb-0 text-center sm:w-4/5">
+            {post.title}
+          </h1>
           <PostMeta
             date={post.date}
             categories={post.categories}
