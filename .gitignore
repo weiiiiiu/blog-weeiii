@@ -1,5 +1,7 @@
 .velite/
 .claude/
+.agents/
+.codex/
 .vscode/
 .idea/
 
