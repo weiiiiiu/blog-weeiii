@@ -66,7 +66,7 @@
 
     pre code {
       color: var(--text-secondary);
-      @apply m-0 block overflow-auto rounded-lg p-8 text-sm;
+      @apply m-0 block overflow-auto rounded-lg p-4 text-sm;
     }
 
     ul li {
@@ -124,7 +124,7 @@
     }
     .hljs-comment,
     .hljs-quote {
-      color: #a79b87ba;
+      color: #879aa7ba;
       font-style: italic;
     }
     .hljs-variable,

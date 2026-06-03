@@ -4,6 +4,7 @@ import { Eye, MessageSquare } from "lucide-react";
 import { lazy, Suspense, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { siteInfo } from "site.config";
+import { MDCodeFence } from "~/components/markdown/MDCodeFence";
 import { MDImg } from "~/components/markdown/MDImg";
 import { MDXContent } from "~/components/markdown/MDXComponent";
 import { FloatButtons } from "~/components/post/FloatButtons";
@@ -89,6 +90,7 @@ export default function BlogPost({ loaderData }: Route.ComponentProps) {
   const mdxComponents = useMemo(() => {
     return {
       img: MDImg,
+      pre: MDCodeFence,
     };
   }, []);
 
