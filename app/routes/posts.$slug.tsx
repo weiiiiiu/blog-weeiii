@@ -5,11 +5,11 @@ import { lazy, Suspense, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { siteInfo } from "site.config";
 import { MDImg } from "~/components/markdown/MDImg";
+import { MDXContent } from "~/components/markdown/MDXComponent";
 import { FloatButtons } from "~/components/post/FloatButtons";
 import { Pagination } from "~/components/post/Pagination";
 import { PostMeta } from "~/components/post/PostMeta";
 import { TableOfContents } from "~/components/post/TableOfContents";
-import { useMdx } from "~/hooks/use-mdx";
 import { useTocHighlight } from "~/hooks/use-toc-highlight";
 import type { Route } from "./+types/posts.$slug";
 
@@ -110,7 +110,8 @@ export default function BlogPost({ loaderData }: Route.ComponentProps) {
           </section>
 
           <div ref={contentRef} className="markdown-wrapper">
-            {useMdx(post.content_jsx, mdxComponents)}
+            {/* SSR rendered markdown */}
+            <MDXContent code={post.content_jsx} components={mdxComponents} />
           </div>
 
           <section>
