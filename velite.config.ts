@@ -1,11 +1,11 @@
-import { buildMemoCsrData, splitMemo } from "lib/data/server/memos";
-import { buildRss, buildSiteMap } from "lib/data/server/rss";
-import { buildSearchIndex } from "lib/data/server/searchindex";
-import { remarkUnrwrapImages } from "lib/remark/remark-unwrap-images";
 import rehypeHighlight from "rehype-highlight";
 import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
 import { defineConfig, s } from "velite";
+import { buildMemoCsrData, splitMemo } from "./lib/data/server/memos";
+import { buildRss, buildSiteMap } from "./lib/data/server/rss";
+import { buildSearchIndex } from "./lib/data/server/searchindex";
+import { remarkUnrwrapImages } from "./lib/remark/remark-unwrap-images";
 
 // `s` is extended from Zod with some custom schemas,
 // you can also import re-exported `z` from `velite` if you don't need these extension schemas.

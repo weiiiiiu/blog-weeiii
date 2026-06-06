@@ -2,7 +2,7 @@ import { Feed, type Item } from "feed";
 import fs from 'fs';
 import { toHTML } from "lib/md-compile/compile";
 import { siteInfo } from "site.config";
-import type veliteConfig from 'velite.config';
+import type veliteConfig from '../../../velite.config';
 import { buildPostsDB } from './posts';
 
 type Collections = typeof veliteConfig.collections;

@@ -1,5 +1,5 @@
 import { writeJson } from "lib/fs/fs";
-import type veliteConfig from "velite.config";
+import type veliteConfig from "../../../velite.config";
 
 import { toMdxCode } from "lib/md-compile/compile";
 import { remarkTag } from "lib/remark/remark-tag";

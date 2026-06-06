@@ -3,16 +3,23 @@ import tailwindcss from "@tailwindcss/vite";
 // import { visualizer } from "rollup-plugin-visualizer";
 import { defineConfig } from "vite";
 import svgr from "vite-plugin-svgr";
-import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
-  esbuild: {
-    pure: ["console.debug"],
+  resolve: {
+    tsconfigPaths: true,
+  },
+  build: {
+    minify: "terser",
+    terserOptions: {
+      compress: {
+        pure_funcs: ["console.debug"],
+      },
+    },
+    
   },
   plugins: [
     tailwindcss(),
     reactRouter(),
-    tsconfigPaths(),
     svgr(),
     // visualizer({
     //   emitFile: true,

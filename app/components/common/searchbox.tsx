@@ -1,4 +1,3 @@
-import useSearch from "app/hooks/use-search";
 import type { PostSearchObj } from "lib/data/search.common";
 import { POSTS_SEARCH_INDEX_FILE } from "lib/data/search.common";
 import type { Match, Result } from "lib/search";
@@ -6,6 +5,7 @@ import { debounce } from "lib/throttle";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
+import useSearch from "~/hooks/use-search";
 
 /**
  * Search result type for posts

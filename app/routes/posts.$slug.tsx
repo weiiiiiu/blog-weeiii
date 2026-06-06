@@ -1,4 +1,4 @@
-import { Post } from ".velite";
+import type { Post } from ".velite";
 import { TFunction } from "i18next";
 import { Eye, MessageSquare } from "lucide-react";
 import { lazy, Suspense, useMemo, useRef, useState } from "react";

@@ -1,4 +1,8 @@
-import type veliteConfig from "velite.config";
+import type veliteConfig from "../../../velite.config";
+// server side, must use relative path becuase 
+// it will be translated to await import(".velite") in runtime,
+import { posts } from "../../../.velite";
+
 type Collections = typeof veliteConfig.collections;
 type Post = Collections["posts"]["schema"]["_output"];
 
@@ -114,19 +118,7 @@ export function buildPostsDB(postsData: Post[]) {
   };
 }
 
-/**
- * Posts database built from Velite pre-processed data (static import)
- * Used at runtime when velite data is already built
- */
-export const posts_db: PostsDB = await (async () => {
-  try {
-    const mod = await import(".velite");
-    return buildPostsDB(mod.posts);
-  } catch (err) {
-    console.error("Failed to load Velite data for posts_db", err);
-    return buildPostsDB([]);
-  }
-})();
+export const posts_db: PostsDB = buildPostsDB(posts);
 
 /**
  * Group posts data by year in an Object
