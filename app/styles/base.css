@@ -26,7 +26,7 @@
   :root {
     /* --- Light Mode Colors --- */
     --text-primary: #000000;
-    --text-secondary: #3a4142;
+    --text-secondary: #222425;
     --text-gray: #777;
     --text-gray-2: #989898;
     --text-gray-3: #aeaeae;
@@ -118,7 +118,6 @@
 
   /* ----------------------------------------
      Typography (排版系统)
-     直接使用 CSS 属性以保证和你旧设计 100% 一致
   ---------------------------------------- */
   h1, h2, h3, h4, h5, h6 {
     @apply font-semibold;
@@ -126,21 +125,21 @@
 
   h1 {
     font-size: 2.25rem;
-    line-height: 3.25rem;
+    line-height: 1.444rem;
     margin-top: 2.5rem;
     margin-bottom: 1.5rem;
   }
 
   h2 {
     font-size: 1.875rem;
-    line-height: 2.75rem;
+    line-height: 1.467;
     margin-top: 2.5rem;
     margin-bottom: 1.25rem;
   }
 
   h3 {
     font-size: 1.5rem;
-    line-height: 2.25rem;
+    line-height: 1.5;
     margin-top: 2rem;
     margin-bottom: 1.25rem;
   }
@@ -152,25 +151,25 @@
 
   h4 {
     font-size: 1.25rem;
-    line-height: 1.875rem;
+    line-height: 1.5;
   }
 
   h5 {
     font-size: 1rem;
-    line-height: 1.625rem;
+    line-height: 1.625;
     margin-bottom: 0.5rem;
   }
 
   h6 {
     font-size: 1rem;
-    line-height: 1.5rem;
+    line-height: 1.5;
     opacity: 0.6;
   }
 
   p, ul, ol {
     font-size: 1rem;
-    line-height: 1.8rem;
-    margin: 1rem 0;
+    line-height: 1.8;
+    margin: 1.5rem 0;
   }
 
   ul, ol {
