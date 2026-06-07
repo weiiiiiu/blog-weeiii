@@ -172,6 +172,11 @@
     margin: 1.5rem 0;
   }
 
+  li > ul, li > ol {
+    margin-top: 0.125rem;
+    margin-bottom: 0.125rem;
+  }
+
   ul, ol {
     padding-inline-start: 1.5rem;
   }
