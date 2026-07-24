@@ -101,9 +101,13 @@ function SearchBox({ outSetSearch: outShow, outIsShow, iconEle }: Props) {
 
   // Focus on open
   useEffect(() => {
-    if (outIsShow) {
+    if (!outIsShow) return;
+
+    const frameId = requestAnimationFrame(() => {
       inputRef.current?.focus();
-    }
+    });
+
+    return () => cancelAnimationFrame(frameId);
   }, [outIsShow]);
 
   // Handle input change - search on typing
@@ -141,7 +145,7 @@ function SearchBox({ outSetSearch: outShow, outIsShow, iconEle }: Props) {
   return (
     <div
       ref={containerRef}
-      className={`bg-bg border-ui-line-gray-2 fixed top-13.75 right-0 z-11 m-[0_10px] w-96 overflow-hidden rounded-xl border shadow-[0_0_12px_var(--shadow-bg)] transition-all duration-300 ease-out max-[580px]:max-h-[50%] max-[580px]:w-[96%] ${
+      className={`bg-bg border-ui-line-gray-2 fixed top-13.75 right-0 z-11 m-[0_10px] w-96 overflow-hidden rounded-xl border shadow-[0_0_12px_var(--shadow-bg)] transition-[opacity,transform] duration-300 ease-out max-[580px]:max-h-[50%] max-[580px]:w-[96%] ${
         outIsShow
           ? "visible translate-y-0 opacity-100"
           : "pointer-events-none invisible -translate-y-2.5 opacity-0"
