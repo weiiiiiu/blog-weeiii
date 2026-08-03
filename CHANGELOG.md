@@ -24,3 +24,5 @@
 - 碎碎念卡片头像（`MemoCard.tsx`）由模板自带的猫图换成同一张 Labubu 图，直接复用 `/logo.png`。原实现按明暗主题在 `avatar-white.png` / `avatar-black.png` 间切换，是因为旧图为单色线稿；全彩透明图无需区分主题，故移除该条件分支，连带移除因此失效的 `theme` 变量与 `useAppState` 导入。同时去掉 `rounded-full border`——圆形遮罩会削掉兔耳，且透明图加边框会画出方框。删除随之孤立的 `public/avatar-white.png`、`public/avatar-black.png`。
 - 碎碎念卡片头像由 40px（`h-10 w-10`）缩小至 32px（`h-8 w-8`）。原猫图自带留白，而新图头部撑满画幅，同尺寸下视觉重量明显更大。
 - 头像尺寸再次下调：顶栏 logo 36px → 28px，碎碎念卡片头像 32px → 28px（`h-8` → `h-7`），两处统一。
+- 作者名改为全大写 `ZHONG WEI`（`site.config.ts` 的 `author`），顶栏、页脚、碎碎念、各页 title 与 RSS 一并生效；`content/pages/about.md` 的 `hero` 同步改为 `Hi, I'm ZHONG WEI`。
+- 「关于」页顶部背景图改为可在后台更换。原先 `about.css` 中写死 `url(/imgs/bg.jpg)`，CMS 无法修改。现提为 about.md 的 `cover` 字段：CSS 改用 `var(--about-cover)`，由 `about.tsx` 通过内联 CSS 自定义属性注入（背景绘制在 `::after` 伪元素上，内联样式无法直接命中，故走变量）；预加载逻辑同步改用该字段并在缺省时跳过。`.pages.yml` 增加 image 类型字段，可直接在后台上传新图。

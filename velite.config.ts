@@ -50,6 +50,7 @@ export default defineConfig({
         hero: s.string().nullish(),
         subtitle: s.string().nullish(),
         description: s.string().nullish(),
+        cover: s.string().nullish(), // 头图路径，如 /imgs/bg.jpg
         content_html: s.markdown(),
       }),
     },

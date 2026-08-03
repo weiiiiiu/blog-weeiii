@@ -1,5 +1,5 @@
 export const siteInfo: SiteInfo = {
-  author: "Zhong Wei", // 显示在页面上的作者名
+  author: "ZHONG WEI", // 显示在页面上的作者名
   social: {
     email: "weeiii826@gmail.com",
     github: "https://github.com/weiiiiiu",

@@ -21,6 +21,9 @@ content:
       - name: description
         label: SEO 描述
         type: string
+      - name: cover
+        label: 顶部背景图（换图直接在这里上传）
+        type: image
       - name: body
         label: 正文
         type: rich-text

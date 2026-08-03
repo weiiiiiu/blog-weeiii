@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 import { siteInfo } from "site.config";
 import { OneColLayout } from "~/components/common/layout";
 import type { Route } from "./+types/about";
@@ -22,9 +22,12 @@ export function meta({ loaderData }: Route.MetaArgs) {
 export default function About({ loaderData }: Route.ComponentProps) {
   const [isBgLoaded, setIsBgLoaded] = useState(false);
 
+  const cover = loaderData.cover;
+
   useEffect(() => {
+    if (!cover) return;
     const img = new Image();
-    img.src = "/imgs/bg.jpg";
+    img.src = cover;
     img.onload = () => setIsBgLoaded(true);
     img.onerror = () => {};
 
@@ -32,12 +35,19 @@ export default function About({ loaderData }: Route.ComponentProps) {
       img.onload = null;
       img.onerror = null;
     };
-  }, []);
+  }, [cover]);
 
   return (
     <>
       {/* Hero Section */}
-      <h1 className={`about-hero ${isBgLoaded ? "loaded" : ""}`}>
+      <h1
+        className={`about-hero ${isBgLoaded ? "loaded" : ""}`}
+        style={
+          cover
+            ? ({ "--about-cover": `url(${cover})` } as CSSProperties)
+            : undefined
+        }
+      >
         <span>{loaderData.hero ?? `Hi, I'm ${siteInfo.author}`}</span>
       </h1>
 

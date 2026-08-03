@@ -1,7 +1,8 @@
 ---
-hero: Hi, I'm Zhong Wei
+hero: Hi, I'm ZHONG WEI
 subtitle: / 记录一些思考和吐槽 /
 description: 关于我
+cover: /imgs/bg.jpg
 ---
 
 Github: <https://github.com/weiiiiiu>
