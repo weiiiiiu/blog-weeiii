@@ -50,7 +50,20 @@ export function splitMemo(raw: string, sourceFile: string = ""): MemoPost[] {
         word_count: -1, // placeholder, will be set later
       });
     } else {
-      if (memos.length === 0) continue; // Ignore lines before first ##
+      // 正文开头没有 ## 时，为其开一条 memo，避免内容被静默丢弃。
+      // id 留空，由 velite 的对象级 transform 回填为文件的 date。
+      if (memos.length === 0) {
+        if (line.trim() === "") continue; // 跳过正文前的空行
+        memos.push({
+          id: "",
+          content: "",
+          tags: [],
+          imgs_md: [],
+          sourceFile,
+          csrIndex: [-1, -1],
+          word_count: -1,
+        });
+      }
 
       // Detect images (whole line)
       const imgreg = /^\!\[.*\]\(.+\)$/;

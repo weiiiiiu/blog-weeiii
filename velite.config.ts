@@ -57,15 +57,23 @@ export default defineConfig({
     memos: {
       name: "Memo",
       pattern: "memos/*.md",
-      schema: s.object({
-        title: s.string().max(99),
-        file_path: s.path(),
-        date: s.isodate(),
-        description: s.string().nullish(),
-        word_count: s.metadata().transform((m) => m.wordCount),
-        draft: s.boolean().default(false),
-        memos: s.raw().transform((raw) => splitMemo(raw)), // content to be split
-      }),
+      schema: s
+        .object({
+          title: s.string().max(99),
+          file_path: s.path(),
+          date: s.isodate(),
+          description: s.string().nullish(),
+          word_count: s.metadata().transform((m) => m.wordCount),
+          draft: s.boolean().default(false),
+          memos: s.raw().transform((raw) => splitMemo(raw)), // content to be split
+        })
+        // 正文开头未写 ## 时 splitMemo 会留空 id，用文件自身的 date 回填
+        .transform((data) => ({
+          ...data,
+          memos: data.memos.map((m) =>
+            m.id === "" ? { ...m, id: data.date } : m,
+          ),
+        })),
     },
   },
   async complete(data, context) {

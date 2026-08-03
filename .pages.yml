@@ -91,7 +91,8 @@ content:
         default: false
       # 碎碎念用纯 markdown 编辑器，避免所见即所得编辑器破坏 #标签 和 ## 分条格式
       - name: body
-        label: 正文（每个 ## 二级标题 = 一条碎碎念，标题建议填时间）
+        label: 正文
+        description: 直接写内容即可，整篇算一条。想在同一个文件里放多条，就用「## 时间」分隔，每个二级标题起一条新的。
         type: code
         options:
           language: markdown
