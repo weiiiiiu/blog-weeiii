@@ -4,14 +4,13 @@ subtitle: / 记录一些思考和吐槽 /
 description: 关于我
 cover: /imgs/bg.jpg
 ---
+Github: [https://github.com/weiiiiiu](https://github.com/weiiiiiu)
 
-Github: <https://github.com/weiiiiiu>
-
-E-mail：<weeiii826@gmail.com>
+E-mail：[weeiii826@gmail.com](mailto:weeiii826@gmail.com)
 
 #### 我在做什么
 
-这里写你的自我介绍。下面这些都是示例，随便改。
+这里自我介绍。下面这些都是示例。
 
 - 一条
 - 又一条
