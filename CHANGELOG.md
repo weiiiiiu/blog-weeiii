@@ -18,3 +18,5 @@
 - 绑定自定义域名 `blog.006573.xyz`，`site.config.ts` 的 `domain` 由 `blog-weeiii.pages.dev` 改为该域名，修正 RSS 与 sitemap 中的绝对链接。
 - 导入《价格行为学》读书笔记 193 篇至 `content/posts/`。源文件 frontmatter 使用中文键且缺少 velite 必需的 `title` 与 `date`，直接放入会构建失败；新增 `scripts/import-notes.mjs` 完成转换：`标题` → `title`（前缀讲次号）、按讲次生成 `date` 使首页排序等于课程阅读顺序、补 `categories: 价格行为学`、去除正文中与模板 `<h1>` 重复的一级标题。图片沿用原有 jsDelivr 图床绝对链接，未做迁移。
 - 左上角站点 logo 由 `app/assets/icons/neko.svg`（单色矢量猫）换成个人照片 `public/logo.png`（144×144，圆形裁切，源图裁自 `image.jpg` 头部区域）。`topbar/index.tsx` 改用 `<img>` 渲染并移除已失效的 `NekoIcon` 导入。注意：原 svg 使用 `fill="currentColor"` 可随明暗主题自动变色，改用照片后不再具备该特性。
+- 重裁 `public/logo.png`：上一版按方形取景，但顶栏用 `rounded-full` 圆形遮罩，四角被削后脸正好落在裁掉的区域，视觉上只剩帽子。改为按圆形可见区域定位，裁剪框 `(160,100)-(720,660)`，脸位于圆心。
+- `public/favicon.ico` 由黑猫换成同一照片（脸部特写裁剪），并从单一 32×32 扩为 16/32/48/64 多尺寸。浏览器标签栏此前仍显示旧图标即因该文件未同步更换。
