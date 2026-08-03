@@ -1,4 +1,5 @@
 import type { WalineComment } from "@waline/client";
+import { walinePath } from "lib/waline-path";
 import { Loader2, MessageSquare, PencilLine } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -23,7 +24,9 @@ export function CommentCard({ onOpenComment }: CommentCardProps) {
       return;
     }
 
-    const path = encodeURIComponent(globalThis.location.pathname);
+    const path = encodeURIComponent(
+      walinePath(globalThis.location.pathname),
+    );
     fetch(
       `${siteInfo.walineApi}/comment?path=${path}&pageSize=10&page=1&lang=en-US&sortBy=insertedAt_desc`,
     )

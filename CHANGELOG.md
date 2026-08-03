@@ -30,3 +30,4 @@
 - 正文图片去掉圆角与投影。样式来自 `app/styles/components.css` 中 `.markdown-wrapper` 作用域下的 `img, picture { @apply rounded-2xl shadow-md; box-shadow: ... }`，整条移除。该规则仅作用于正文，顶栏 logo 与碎碎念头像不受影响；同文件中链接下划线、行内代码、代码块的圆角与阴影保留。
 - 接入 Waline 评论与浏览量服务，`site.config.ts` 增加 `walineApi: https://waline-gamma-opal.vercel.app`（Vercel 部署，数据库为其模板自动配置的 Neon）。此前该字段缺省，导致 `waline.tsx` 直接返回、文章页的阅读量与评论数占位元素始终为空。部署前已实测服务端写入链路：POST `/api/article` 递增后回读数值持久化，确认表结构可用。
 - Waline 服务端地址由 `waline-gamma-opal.vercel.app` 改为自有子域名 `comment.006573.xyz`。绑定自定义域名后 Vercel 会将原 `.vercel.app` 地址设为 307 跳转，继续使用旧地址会让 API 请求（尤其 POST）走重定向。切换前已验证新域名：TLS 有效、浏览量与评论数接口正常、写入递增数值与旧域名连续（同一数据库）。
+- 修复文章页顶部阅读量/评论数恒为 0（评论实际存在）的问题。Waline 以 path 字符串作为内容唯一标识，读写必须完全一致。本站为目录式 URL，`waline.tsx` 与 `CommentCard.tsx` 用 `location.pathname` 得到的是带尾斜杠的 `/posts/xxx/`，而 `posts.$slug.tsx` 顶部计数元素的 `data-path` 按 `/posts/${slug}` 拼接、不带尾斜杠，两者查的是不同记录。新增 `lib/waline-path.ts` 统一去除尾斜杠作为规范形式，在上述两处调用；`data-path` 本就是规范形式，无需改动。注意：切换前以带尾斜杠路径写入的数据（测试评论与浏览量）会与新路径不再关联。
