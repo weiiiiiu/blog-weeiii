@@ -6,6 +6,25 @@ media:
   output: /imgs # 文章里引用时的网址前缀
 
 content:
+  - name: about
+    label: 关于页
+    type: file
+    path: content/pages/about.md
+    format: yaml-frontmatter
+    fields:
+      - name: hero
+        label: 大标题（页面顶部那行）
+        type: string
+      - name: subtitle
+        label: 副标题（右侧那行斜体小字）
+        type: string
+      - name: description
+        label: SEO 描述
+        type: string
+      - name: body
+        label: 正文
+        type: rich-text
+
   - name: posts
     label: 博客文章
     type: collection

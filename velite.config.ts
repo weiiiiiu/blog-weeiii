@@ -42,6 +42,17 @@ export default defineConfig({
         // more additional fields (computed fields)
         .transform((data) => ({ ...data, permalink: `/posts/${data.slug}` })),
     },
+    about: {
+      name: "About",
+      pattern: "pages/about.md",
+      single: true, // 只有一个文件，输出对象而非数组
+      schema: s.object({
+        hero: s.string().nullish(),
+        subtitle: s.string().nullish(),
+        description: s.string().nullish(),
+        content_html: s.markdown(),
+      }),
+    },
     memos: {
       name: "Memo",
       pattern: "memos/*.md",

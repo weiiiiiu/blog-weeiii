@@ -6,6 +6,9 @@
 
 ### 更新内容
 
+- 「关于」页改为 markdown 驱动，可在后台编辑。原先内容硬编码在 `app/routes/about/about.tsx` 的 JSX 里，CMS 无法读取，且残留大量模板原作者的个人信息。现拆为 `content/pages/about.md`，velite 新增 `about` 单文件集合（`single: true`），路由改用 loader 读取并渲染 `content_html`，页面大标题与副标题也一并提为 frontmatter 字段。
+- `.velite/index.js`、`index.d.ts` 取消 git 跟踪。这两个是 velite 生成物，早于 `.gitignore` 规则被提交，导致每次构建都弄脏工作区。文件保留在本地，不影响构建。
+
 - 新增 `.nvmrc`（Node 22）：Cloudflare Pages 默认 Node 版本偏旧，而 Vite 8 要求 Node ≥ 20.19，不锁版本首次构建会失败。
 - 新增 `.pages.yml`：接入 Pages CMS 网页后台，可在 https://app.pagescms.org 直接编辑文章与碎碎念，无需本地命令行。碎碎念正文使用纯 markdown 编辑器，避免所见即所得编辑器破坏 `#标签` 与 `##` 分条格式。
 - 新增 `scripts/bootstrap-velite.mjs`：修复全新检出无法构建的问题。根因是 `velite.config.ts` → `lib/data/server/rss.ts` → `lib/data/server/posts.ts:4` 在模块顶层 import 了 `.velite/posts.json`，而该文件正是 velite 自身要生成的产物，导致全新环境（含 CI）必然构建失败。脚本在 velite 运行前补空占位数据引导，随后被真实内容覆盖。
