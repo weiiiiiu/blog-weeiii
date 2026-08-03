@@ -16,3 +16,4 @@
 - `.gitignore`：移除对 `content/` 的忽略，使文章能进入版本库（网页后台发文的前提）；移除对 `site.config.ts` 的忽略，使 CI 能读到站点配置；将整目录忽略的 `/public/` 收窄为仅忽略 velite 生成物（`/public/data/`、`atom.xml`、`rss`、`feed.json`、`sitemap.xml`），保留头像、字体、favicon 等需入库的静态资源。
 - 新增 `site.config.ts`（由 `site.config.template.ts` 生成）：填入作者与时区信息；移除未使用的 `walineApi`、`GAId` 占位值，避免指向不存在的评论后端。GitHub 主页与站点域名暂为占位符，待部署后填写。
 - 绑定自定义域名 `blog.006573.xyz`，`site.config.ts` 的 `domain` 由 `blog-weeiii.pages.dev` 改为该域名，修正 RSS 与 sitemap 中的绝对链接。
+- 导入《价格行为学》读书笔记 193 篇至 `content/posts/`。源文件 frontmatter 使用中文键且缺少 velite 必需的 `title` 与 `date`，直接放入会构建失败；新增 `scripts/import-notes.mjs` 完成转换：`标题` → `title`（前缀讲次号）、按讲次生成 `date` 使首页排序等于课程阅读顺序、补 `categories: 价格行为学`、去除正文中与模板 `<h1>` 重复的一级标题。图片沿用原有 jsDelivr 图床绝对链接，未做迁移。
