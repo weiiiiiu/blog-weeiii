@@ -5,7 +5,7 @@ export const siteInfo: SiteInfo = {
     github: "https://github.com/weiiiiiu",
   },
   timeZone: "Asia/Shanghai",
-  domain: "https://blog-weeiii.pages.dev", // 用于生成 RSS。以后绑了自己的域名记得改这里
+  domain: "https://blog.006573.xyz", // 用于生成 RSS 和 sitemap 里的绝对链接
   friends: [],
 } as const;
 
