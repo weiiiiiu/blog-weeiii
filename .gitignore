@@ -17,8 +17,11 @@
 
 /dist/
 /out/
-/public/
 
-site.config.ts
-content/
+# public/ 下由 pnpm velite 自动生成的文件，不提交
+/public/data/
+/public/atom.xml
+/public/rss
+/public/feed.json
+/public/sitemap.xml
 

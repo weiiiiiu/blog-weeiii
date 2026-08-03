@@ -1,0 +1,75 @@
+# Pages CMS 后台配置 —— 在 https://app.pagescms.org 登录后即可用网页编辑文章
+# 文档: https://pagescms.org/docs
+
+media:
+  input: public/imgs # 图片上传到仓库的这个目录
+  output: /imgs # 文章里引用时的网址前缀
+
+content:
+  - name: posts
+    label: 博客文章
+    type: collection
+    path: content/posts
+    format: yaml-frontmatter
+    filename: "{primary}.md"
+    fields:
+      - name: title
+        label: 标题
+        type: string
+        required: true
+      - name: date
+        label: 发布时间
+        type: date
+        required: true
+        options:
+          time: true
+          format: yyyy-MM-dd' 'HH:mm:ss
+      - name: categories
+        label: 分类（只能填一个）
+        type: string
+      - name: tags
+        label: 标签
+        type: string
+        list: true
+      - name: description
+        label: 简介（显示在首页列表）
+        type: text
+      - name: draft
+        label: 草稿（勾上就不推送到 RSS）
+        type: boolean
+        default: false
+      - name: keywords
+        label: SEO 关键词（用逗号分隔）
+        type: string
+      - name: body
+        label: 正文
+        type: rich-text
+
+  - name: memos
+    label: 碎碎念
+    type: collection
+    path: content/memos
+    format: yaml-frontmatter
+    filename: "{primary}.md"
+    fields:
+      - name: title
+        label: 文件标题（不显示在网页上）
+        type: string
+        required: true
+      - name: date
+        label: 创建时间
+        type: date
+        required: true
+        options:
+          time: true
+          format: yyyy-MM-dd' 'HH:mm:ss
+      - name: draft
+        label: 草稿（勾上就不推送到 RSS）
+        type: boolean
+        default: false
+      # 碎碎念用纯 markdown 编辑器，避免所见即所得编辑器破坏 #标签 和 ## 分条格式
+      - name: body
+        label: 正文（每个 ## 二级标题 = 一条碎碎念，标题建议填时间）
+        type: code
+        options:
+          language: markdown
