@@ -91,7 +91,7 @@ export function MemoCard({
         {/* Meta info */}
         <div className="flex items-center">
           <img
-            className="mr-2 h-8 w-8"
+            className="mr-2 h-7 w-7"
             src="/logo.png"
             alt={siteInfo.author}
           />

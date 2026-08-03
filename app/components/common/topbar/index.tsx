@@ -132,8 +132,8 @@ export default function Topbar({
           <Link to="/" className="flex items-center px-4">
             <img
               src="/logo.png"
-              width={36}
-              height={36}
+              width={28}
+              height={28}
               alt=""
               className="shrink-0"
             />
