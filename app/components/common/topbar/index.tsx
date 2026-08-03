@@ -135,7 +135,7 @@ export default function Topbar({
               width={36}
               height={36}
               alt=""
-              className="shrink-0 rounded-full"
+              className="shrink-0 rounded-lg"
             />
             <span className="px-2 max-md:hidden">
               {t("ui.blogTitle", { author: siteInfo.author })}
