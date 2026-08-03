@@ -7,7 +7,7 @@ export const siteInfo: SiteInfo = {
   timeZone: "Asia/Shanghai",
   domain: "https://blog.006573.xyz", // 用于生成 RSS 和 sitemap 里的绝对链接
   friends: [],
-  walineApi: "https://waline-gamma-opal.vercel.app", // Waline 评论与浏览量服务端
+  walineApi: "https://comment.006573.xyz", // Waline 评论与浏览量服务端
 } as const;
 
 type SiteInfo = {

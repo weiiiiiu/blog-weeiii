@@ -29,3 +29,4 @@
 - 修复碎碎念正文未以 `## ` 开头时内容被静默丢弃、页面显示 0 条的问题。根因在 `lib/data/server/memos.ts` 的 `splitMemo`：原逻辑遇到第一个 `## ` 之前的行一律 `continue` 跳过，用户在后台直接写正文（不加二级标题）会导致整条内容消失且无任何报错。现改为：正文开头无 `## ` 时自动为其建立一条 memo，id 留空并由 `velite.config.ts` 的对象级 transform 回填该文件的 `date`。`## ` 分隔多条的原有行为不变。`.pages.yml` 的正文字段说明同步更新为「直接写即可，多条才需要 ## 分隔」。
 - 正文图片去掉圆角与投影。样式来自 `app/styles/components.css` 中 `.markdown-wrapper` 作用域下的 `img, picture { @apply rounded-2xl shadow-md; box-shadow: ... }`，整条移除。该规则仅作用于正文，顶栏 logo 与碎碎念头像不受影响；同文件中链接下划线、行内代码、代码块的圆角与阴影保留。
 - 接入 Waline 评论与浏览量服务，`site.config.ts` 增加 `walineApi: https://waline-gamma-opal.vercel.app`（Vercel 部署，数据库为其模板自动配置的 Neon）。此前该字段缺省，导致 `waline.tsx` 直接返回、文章页的阅读量与评论数占位元素始终为空。部署前已实测服务端写入链路：POST `/api/article` 递增后回读数值持久化，确认表结构可用。
+- Waline 服务端地址由 `waline-gamma-opal.vercel.app` 改为自有子域名 `comment.006573.xyz`。绑定自定义域名后 Vercel 会将原 `.vercel.app` 地址设为 307 跳转，继续使用旧地址会让 API 请求（尤其 POST）走重定向。切换前已验证新域名：TLS 有效、浏览量与评论数接口正常、写入递增数值与旧域名连续（同一数据库）。
