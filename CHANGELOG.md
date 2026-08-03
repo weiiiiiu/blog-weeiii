@@ -21,3 +21,4 @@
 - 重裁 `public/logo.png`：上一版按方形取景，但顶栏用 `rounded-full` 圆形遮罩，四角被削后脸正好落在裁掉的区域，视觉上只剩帽子。改为按圆形可见区域定位，裁剪框 `(160,100)-(720,660)`，脸位于圆心。
 - `public/favicon.ico` 由黑猫换成同一照片（脸部特写裁剪），并从单一 32×32 扩为 16/32/48/64 多尺寸。浏览器标签栏此前仍显示旧图标即因该文件未同步更换。
 - 站点 logo 与 favicon 改用 AI 生成的 Labubu 头像图（透明背景、头部撑满画面）。此前用个人照片，在 36px 顶栏与 16px 标签栏下细节尽失。背景以边缘泛洪填充抠除（阈值 28——按颜色距离阈值抠会误伤米色绒毛，因其与粉色背景的 RGB 距离仅约 46）。顶栏移除圆形遮罩 `rounded-full`，否则会削掉兔耳。`favicon.ico` 输出 16/32/48/64 多尺寸。
+- 碎碎念卡片头像（`MemoCard.tsx`）由模板自带的猫图换成同一张 Labubu 图，直接复用 `/logo.png`。原实现按明暗主题在 `avatar-white.png` / `avatar-black.png` 间切换，是因为旧图为单色线稿；全彩透明图无需区分主题，故移除该条件分支，连带移除因此失效的 `theme` 变量与 `useAppState` 导入。同时去掉 `rounded-full border`——圆形遮罩会削掉兔耳，且透明图加边框会画出方框。删除随之孤立的 `public/avatar-white.png`、`public/avatar-black.png`。

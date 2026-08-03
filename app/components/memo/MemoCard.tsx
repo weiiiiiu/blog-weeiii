@@ -5,7 +5,6 @@ import React, { useCallback, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { siteInfo } from "site.config";
 import { MDXContent } from "~/components/markdown/MDXComponent";
-import useAppState from "~/hooks/use-appstate";
 import useDateI18n from "~/hooks/use-date-i18n";
 import { ImageThumbs } from "./ImageThumbs";
 
@@ -26,7 +25,6 @@ export function MemoCard({
 }: MemoCardProps) {
   const [isCollapse, setIsCollapse] = useState(true);
   const ref = useRef<HTMLDivElement>(null);
-  const { theme } = useAppState();
   const { t } = useTranslation();
   const { parseMemoIdDisplay } = useDateI18n();
 
@@ -93,8 +91,8 @@ export function MemoCard({
         {/* Meta info */}
         <div className="flex items-center">
           <img
-            className="border-ui-line-gray mr-2 h-10 w-10 rounded-full border"
-            src={theme === "light" ? "/avatar-white.png" : "/avatar-black.png"}
+            className="mr-2 h-10 w-10"
+            src="/logo.png"
             alt={siteInfo.author}
           />
           <div className="flex flex-col items-start">
