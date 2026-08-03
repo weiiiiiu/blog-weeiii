@@ -27,3 +27,4 @@
 - 作者名改为全大写 `ZHONG WEI`（`site.config.ts` 的 `author`），顶栏、页脚、碎碎念、各页 title 与 RSS 一并生效；`content/pages/about.md` 的 `hero` 同步改为 `Hi, I'm ZHONG WEI`。
 - 「关于」页顶部背景图改为可在后台更换。原先 `about.css` 中写死 `url(/imgs/bg.jpg)`，CMS 无法修改。现提为 about.md 的 `cover` 字段：CSS 改用 `var(--about-cover)`，由 `about.tsx` 通过内联 CSS 自定义属性注入（背景绘制在 `::after` 伪元素上，内联样式无法直接命中，故走变量）；预加载逻辑同步改用该字段并在缺省时跳过。`.pages.yml` 增加 image 类型字段，可直接在后台上传新图。
 - 修复碎碎念正文未以 `## ` 开头时内容被静默丢弃、页面显示 0 条的问题。根因在 `lib/data/server/memos.ts` 的 `splitMemo`：原逻辑遇到第一个 `## ` 之前的行一律 `continue` 跳过，用户在后台直接写正文（不加二级标题）会导致整条内容消失且无任何报错。现改为：正文开头无 `## ` 时自动为其建立一条 memo，id 留空并由 `velite.config.ts` 的对象级 transform 回填该文件的 `date`。`## ` 分隔多条的原有行为不变。`.pages.yml` 的正文字段说明同步更新为「直接写即可，多条才需要 ## 分隔」。
+- 正文图片去掉圆角与投影。样式来自 `app/styles/components.css` 中 `.markdown-wrapper` 作用域下的 `img, picture { @apply rounded-2xl shadow-md; box-shadow: ... }`，整条移除。该规则仅作用于正文，顶栏 logo 与碎碎念头像不受影响；同文件中链接下划线、行内代码、代码块的圆角与阴影保留。
