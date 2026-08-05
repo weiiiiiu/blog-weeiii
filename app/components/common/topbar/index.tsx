@@ -213,12 +213,8 @@ export default function Topbar({
         </div>
       </header>
 
-      {/* Placeholder */}
-      {placeHolder && (
-        <div className="text-accent h-15.75 w-full pt-2.5 text-center font-serif text-[10px] italic opacity-60">
-          人活着就是为了卡卡西
-        </div>
-      )}
+      {/* Placeholder：撑开固定头部占用的高度 */}
+      {placeHolder && <div className="h-15.75 w-full" />}
     </>
   );
 }
