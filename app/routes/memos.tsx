@@ -324,7 +324,7 @@ export default function MemosPage({ loaderData }: Route.ComponentProps) {
           <FloatButton
             Icon={MenuSquare}
             onClick={() => setIsMobileSider((v) => !v)}
-            className="hidden max-[780px]:block"
+            className="hidden max-[780px]:flex"
           />
 
           {/* TwoColLayout: flex row on desktop, column on mobile */}

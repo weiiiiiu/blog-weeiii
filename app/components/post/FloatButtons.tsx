@@ -1,5 +1,6 @@
 import { ArrowUpToLine, Menu } from 'lucide-react';
 import { FloatButton } from '~/components/common/FloatButton';
+import { useReadingProgress } from '~/hooks/use-reading-progress';
 
 type Props = {
   isViewing: boolean;
@@ -7,6 +8,8 @@ type Props = {
 };
 
 export function FloatButtons({ isViewing, onTocToggle }: Props) {
+  const progress = useReadingProgress();
+
   const scrollToTop = (e: React.MouseEvent) => {
     e.stopPropagation();
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -21,15 +24,16 @@ export function FloatButtons({ isViewing, onTocToggle }: Props) {
           e.stopPropagation();
           onTocToggle();
         }}
-        className="max-lg:block hidden"
+        className="max-lg:flex hidden"
         style={isViewing ? { bottom: '5.25rem' } : undefined}
       />
 
-      {/* Scroll to top button */}
+      {/* Scroll to top button，附带阅读进度百分比 */}
       {isViewing && (
         <FloatButton
           Icon={ArrowUpToLine}
           onClick={scrollToTop}
+          label={`${progress}%`}
         />
       )}
     </>
