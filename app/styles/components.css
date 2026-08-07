@@ -40,6 +40,34 @@
       color: var(--text-gray);
     }
 
+    /* 表格：表头浅底、正文隔行斑马纹、无竖线。
+       display:block + overflow-x:auto 让多列表格在窄屏可横向滚动，
+       而不是把每格挤成两三个字。 */
+    table {
+      @apply my-7 block w-full overflow-x-auto;
+      border-collapse: collapse;
+      font-size: 0.95em;
+    }
+
+    thead th {
+      background: var(--tag-bg);
+      color: var(--text-primary);
+      font-weight: 600;
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    th,
+    td {
+      @apply px-4 py-2.5;
+      border: 0;
+      vertical-align: top;
+    }
+
+    tbody tr:nth-child(even) {
+      background: var(--bg-2);
+    }
+
     a {
       @apply text-text-primary relative font-bold transition-shadow duration-300;
       box-shadow: inset 0 -2px 0 var(--accent-hover);
