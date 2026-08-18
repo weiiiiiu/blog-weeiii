@@ -21,6 +21,8 @@ description: z说交易《价格行为系列》第 1 讲 · M2B 与 M2S 的定�
 
 ## M2B / M2S 的定义
 
+**对应 Brooks**：[09B · 回调与数 K 线（二）](/posts/09B) —— H1/H2/L1/L2 的数腿方法
+
 `01:25`
 
 ![](https://fastly.jsdelivr.net/gh/weiiiiiu/pa-charts@master/img/zshuo-m2b/000125.jpg)
