@@ -33,7 +33,11 @@ content:
     type: collection
     path: content/posts
     format: yaml-frontmatter
-    filename: "{primary}.md"
+    # 使用时间戳，避免纯中文标题被 slugify 成空字符串后生成无扩展名文件。
+    # 新建时显示文件名输入框，必要时仍可手动调整。
+    filename:
+      template: "{year}-{month}-{day}-{hour}-{minute}-{second}.md"
+      field: create
     fields:
       - name: title
         label: 标题
@@ -72,7 +76,9 @@ content:
     type: collection
     path: content/memos
     format: yaml-frontmatter
-    filename: "{primary}.md"
+    filename:
+      template: "{year}-{month}-{day}-{hour}-{minute}-{second}.md"
+      field: create
     fields:
       - name: title
         label: 文件标题（不显示在网页上）
