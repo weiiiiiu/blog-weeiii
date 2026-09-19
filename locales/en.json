@@ -35,6 +35,7 @@
     "expandText": "Expand",
     "collapseText": "Collapse",
     "loading": "Loading...",
+    "imageRetry": "Image failed to load. Click to retry",
     "mobileMenu": "Menu",
     "siteDescription": "A personal blog about work and life",
     "noComments": "No comments yet",

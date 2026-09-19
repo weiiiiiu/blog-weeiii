@@ -35,6 +35,7 @@
     "expandText": "全文を表示",
     "collapseText": "折りたたむ",
     "loading": "読み込み中...",
+    "imageRetry": "画像を読み込めませんでした。クリックして再試行",
     "mobileMenu": "メニュー",
     "siteDescription": "仕事と生活についての個人ブログ",
     "noComments": "コメントはまだありません",

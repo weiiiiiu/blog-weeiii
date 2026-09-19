@@ -6,6 +6,7 @@ import { buildMemoCsrData, splitMemo } from "./lib/data/server/memos";
 import { buildRss, buildSiteMap } from "./lib/data/server/rss";
 import { buildSearchIndex } from "./lib/data/server/searchindex";
 import { remarkUnrwrapImages } from "./lib/remark/remark-unwrap-images";
+import { rehypeImageLoading } from "./lib/rehype/rehype-image-loading";
 
 // `s` is extended from Zod with some custom schemas,
 // you can also import re-exported `z` from `velite` if you don't need these extension schemas.
@@ -29,7 +30,7 @@ export default defineConfig({
           content_html: s.markdown(), // transform markdown to html
           content_jsx: s.mdx({
             remarkPlugins: [remarkGfm, remarkUnrwrapImages],
-            rehypePlugins: [rehypeSlug, rehypeHighlight],
+            rehypePlugins: [rehypeSlug, rehypeHighlight, rehypeImageLoading],
           }), // transform markdown to MDX component
           toc: s.toc({ maxDepth: 3 }), // generate table of contents from markdown headings
           tags: s.array(s.string()).default([]).nullish(), // array of strings
