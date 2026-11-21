@@ -1,0 +1,2 @@
+ticket_id,tenant_id,account_id,order_id,product_id,opened_at,subject,description
+TK-1001,DEMO-CORP,ACCT-017,ORD-10086,TEAM-5,2026-11-21T16:15:00Z,已付款但未开通,客户称已付款，当前页面仍显示免费版。请先核查，不直接修改权限。
