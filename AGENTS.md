@@ -31,10 +31,10 @@ pnpm typecheck    # Generate types and run TypeScript check
 app/
 ├── routes/           # Route handlers (home, posts, memos, categories, tags, about)
 ├── components/       # React components organized by feature
-│   ├── common/       # Shared (layout, topbar, footer, search, waline)
+│   ├── common/       # Shared (layout, topbar, footer, search)
 │   ├── home/         # Home page (ArticleItem, NavCat)
 │   ├── post/         # Post page (FloatButtons, Pagination, PostMeta, TOC)
-│   ├── memo/         # Memo page (MemoCard, VirtualList, ImageBrowser, Sidebar, CommentModal)
+│   ├── memo/         # Memo page (MemoCard, VirtualList, ImageBrowser, Sidebar)
 │   ├── markdown/     # Markdown rendering (MDImg, MDXComponent)
 │   └── categories/   # Category components (Timeline)
 ├── hooks/            # Custom hooks (use-theme, use-search, use-toc-highlight, etc.)
@@ -107,7 +107,7 @@ keywords: Optional keywords
 - `/about` - About page
 
 ### Configuration
-- `site.config.ts` - Site metadata, social links, Waline API, Google Analytics ID
+- `site.config.ts` - Site metadata, social links, Google Analytics ID
 - `react-router.config.ts` - SSG and prerendering settings
 - `velite.config.ts` - Content schema and processing pipeline
 - `vite.config.ts` - Tailwind, React Router, path aliases
@@ -133,7 +133,6 @@ export function HydrateFallback() { /* Loading UI */ }
 - Bidirectional loading (prev/next)
 
 ### Integrations
-- **Waline** - Comment system (`walineApi` in site.config.ts)
 - **Google Analytics** - Site analytics (`GAId`)
 - **RSS** - Auto-generated feed (posts + recent memos)
 - **Search** - Built-in with Chinese/English support, field-specific queries

@@ -35,3 +35,12 @@ export type MemoTag = {
   name: string;
   memoIds: string[];
 };
+
+export interface MemoLoaderData {
+  memos: MemoPostJsx[];
+  info: MemoInfo;
+  tags: MemoTag[];
+  source: "SSG" | "CSR";
+  filterTag?: string;
+  searchQuery?: string;
+}

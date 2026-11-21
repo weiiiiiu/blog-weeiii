@@ -15,6 +15,7 @@ export default {
   },
 
   moduleNameMapper: {
+    '^site\\.config$': '<rootDir>/site.config.ts',
     // 兼容 ESM 的路径映射（把 .js 结尾的引用映射回原文件）
     '^(\\.{1,2}/.*)\\.js$': '$1',
   },

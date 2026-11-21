@@ -7,7 +7,7 @@ import {
   ScrollRestoration,
 } from "react-router";
 
-import { siteInfo } from "site.config";
+import { GA_MEASUREMENT_ID } from "lib/analytics";
 import type { Route } from "./+types/root";
 import { I18nProvider } from "./components/common/I18nProvider";
 import { useGtag } from "./hooks/use-gtag";
@@ -46,23 +46,24 @@ export function Layout({ children }: { children: React.ReactNode }) {
         />
         <Meta />
         <Links />
-        <script
-          async
-          src={`https://www.googletagmanager.com/gtag/js?id=${siteInfo.GAId}`}
-        />
-        {/* 2. 初始化脚本 */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', '${siteInfo.GAId}', {
-                page_path: window.location.pathname,
-              });
-            `,
-          }}
-        />
+        {GA_MEASUREMENT_ID && (
+          <>
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', '${GA_MEASUREMENT_ID}', { send_page_view: false });
+                `,
+              }}
+            />
+            <script
+              async
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+            />
+          </>
+        )}
       </head>
       <body>
         {children}

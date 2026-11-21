@@ -12,7 +12,6 @@
     "tags": "Tags",
     "toc": "Contents",
     "friends": "Friends",
-    "latestComments": "Comments",
     "search": "Search",
     "timeJustNow": "just now",
     "timeMinutesAgo": "{{count}} min ago",
@@ -37,10 +36,6 @@
     "loading": "Loading...",
     "imageRetry": "Image failed to load. Click to retry",
     "mobileMenu": "Menu",
-    "siteDescription": "A personal blog about work and life",
-    "noComments": "No comments yet",
-    "addComment": "Comment",
-    "postView": "View",
-    "postComment": "Comment"
+    "siteDescription": "A personal blog about work and life"
   }
 }

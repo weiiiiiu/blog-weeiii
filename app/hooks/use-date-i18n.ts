@@ -1,6 +1,23 @@
 import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import { dateToYMDHM } from "lib/date";
+import { dateToYMDHM, getDateParts } from "lib/date";
+import { siteInfo } from "site.config";
+import { useHydrated } from "./use-hydrated";
+
+const shortMonths = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
 
 /**
  * Hook for internationalized date formatting
@@ -9,6 +26,10 @@ import { dateToYMDHM } from "lib/date";
 export function useDateI18n() {
   const { t, i18n } = useTranslation();
   const lang = i18n.resolvedLanguage;
+  const hydrated = useHydrated();
+  const timeZone = hydrated
+    ? undefined
+    : (siteInfo.timeZone ?? "Asia/Shanghai");
 
   /**
    * Get English ordinal suffix (1st, 2nd, 3rd, 4th...)
@@ -26,26 +47,32 @@ export function useDateI18n() {
    */
   const dateI18n = useCallback(
     (d: Date, mode: "dateYMD" | "dateNatural" = "dateNatural"): string => {
+      const parts = getDateParts(d, timeZone);
+      const year = Number(parts.year);
+      const month = Number(parts.month);
+      const day = Number(parts.day);
+      const hour = Number(parts.hour);
+      const minute = Number(parts.minute);
       if (mode !== "dateNatural" || lang !== "en") {
         return t(`ui.${mode}`, {
-          year: d.getFullYear(),
-          month: d.getMonth() + 1,
-          day: d.getDate(),
-          hour: d.getHours(),
-          minute: d.getMinutes(),
+          year,
+          month,
+          day,
+          hour,
+          minute,
         });
       } else {
         return t(`ui.${mode}`, {
-          year: d.getFullYear(),
-          month: new Intl.DateTimeFormat("en-US", { month: "short" }).format(d),
-          day: d.getDate(),
-          daySuffix: getEngOrdinalSuffix(d.getDate()),
-          hour: d.getHours(),
-          minute: d.getMinutes(),
+          year,
+          month: shortMonths[month - 1],
+          day,
+          daySuffix: getEngOrdinalSuffix(day),
+          hour,
+          minute,
         });
       }
     },
-    [t, lang, getEngOrdinalSuffix],
+    [t, lang, getEngOrdinalSuffix, timeZone],
   );
 
   /**
@@ -53,6 +80,8 @@ export function useDateI18n() {
    */
   const dateRelative = useCallback(
     (d: Date): string => {
+      // Relative time changes between build and visit. Start with a fixed timestamp.
+      if (!hydrated) return dateToYMDHM(d, timeZone);
       const now = new Date();
       const diff = now.getTime() - d.getTime();
       const minutes = Math.floor(diff / 60000);
@@ -67,7 +96,7 @@ export function useDateI18n() {
       // Over 7 days, show actual date
       return dateToYMDHM(d);
     },
-    [t],
+    [t, hydrated, timeZone],
   );
 
   /**

@@ -1,8 +1,4 @@
-import type { Post } from ".velite";
-import { TFunction } from "i18next";
-import { Eye, MessageSquare } from "lucide-react";
-import { lazy, Suspense, useMemo, useRef, useState } from "react";
-import { useTranslation } from "react-i18next";
+import { useMemo, useRef, useState } from "react";
 import { siteInfo } from "site.config";
 import { MDCodeFence } from "~/components/markdown/MDCodeFence";
 import { MDImg } from "~/components/markdown/MDImg";
@@ -13,9 +9,6 @@ import { PostMeta } from "~/components/post/PostMeta";
 import { TableOfContents } from "~/components/post/TableOfContents";
 import { useTocHighlight } from "~/hooks/use-toc-highlight";
 import type { Route } from "./+types/posts.$slug";
-
-const walineImport = () => import("~/components/common/waline");
-const Waline = lazy(walineImport);
 
 export async function loader({ params }: Route.LoaderArgs) {
   const { posts_db } = await import("lib/data/server/posts");
@@ -81,7 +74,6 @@ export default function BlogPost({ loaderData }: Route.ComponentProps) {
   const contentRef = useRef<HTMLDivElement>(null);
   const [isMobileTocOpen, setIsMobileTocOpen] = useState(false);
   const headings = useMemo(() => flattenToc(post.toc || []), [post.toc]);
-  const { t } = useTranslation();
 
   const { currentIndex, isViewing, scrollTo } = useTocHighlight(
     headings,
@@ -107,10 +99,6 @@ export default function BlogPost({ loaderData }: Route.ComponentProps) {
             categories={post.categories}
             tags={post.tags}
           />
-          <section>
-            <ViewComment post={post} t={t} />
-          </section>
-
           <div ref={contentRef} className="markdown-wrapper">
             {/* SSR rendered markdown */}
             <MDXContent code={post.content_jsx} components={mdxComponents} />
@@ -124,9 +112,6 @@ export default function BlogPost({ loaderData }: Route.ComponentProps) {
 
           <Pagination prevPost={prevPost} nextPost={nextPost} />
         </article>
-        <Suspense fallback={<div>Loading comments...</div>}>
-          <Waline />
-        </Suspense>
       </div>
 
       <TableOfContents
@@ -144,41 +129,6 @@ export default function BlogPost({ loaderData }: Route.ComponentProps) {
         onTocToggle={() => setIsMobileTocOpen((v) => !v)}
       />
     </>
-  );
-}
-
-function ViewComment({
-  post,
-  t,
-}: {
-  post: Post;
-  t: TFunction<"translation", undefined>;
-}) {
-  return (
-    <div className="text-right text-sm opacity-50">
-      <Eye size="1em" className="mr-1 mb-0.5" />
-      <span
-        className="waline-pageview-count mr-1"
-        data-path={`/posts/${encodeURI(post.slug)}`}
-      />
-      {t("ui.postView")}
-      <span
-        className="hover:text-accent cursor-pointer"
-        onClick={() => {
-          const el = document.getElementById("waline");
-          if (el) {
-            el.scrollIntoView({ behavior: "smooth" });
-          }
-        }}
-      >
-        <MessageSquare size="1em" className="mr-1 mb-0.5 ml-4" />
-        <span
-          className="waline-comment-count mr-1"
-          data-path={`/posts/${encodeURI(post.slug)}`}
-        />
-        {t("ui.postComment")}
-      </span>
-    </div>
   );
 }
 

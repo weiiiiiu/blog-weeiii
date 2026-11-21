@@ -12,8 +12,7 @@ export const siteInfo: SiteInfo = {
       link: "https://sansui233.com/",
     },
   ],
-  walineApi: "https://waline.yourname.com", // Optional, Waline Comment System
-  GAId: "G-ED80000000000", // Optional, Google Analytics id
+  GAId: "", // Optional, GA4 ID or VITE_GA_ID env; see docs/analytics.md
 } as const;
 
 type SiteInfo = {
@@ -30,6 +29,5 @@ type SiteInfo = {
 
   // Sites
   domain: string; // Used to generate rss at build time
-  walineApi?: string; // Waline 评论系统后端地址
   GAId?: string; // Google Analytics id
 };

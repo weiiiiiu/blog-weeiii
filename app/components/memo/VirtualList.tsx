@@ -1,6 +1,6 @@
 import { throttle } from "lib/throttle";
 import type { Dispatch, SetStateAction } from "react";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 // Source data type and element prop type
 type Props<T extends { id: string | number }> =
@@ -57,12 +57,6 @@ const VirtualList: VirtualListType = ({
   /** Prevent multiple fetch at the same time */
   const isFetching = useRef(false);
 
-  /** minHeight for container based on placeHolders*/
-  const minHeight = useMemo(
-    () => itemHeights.reduce((sum, height) => (sum += height), 0),
-    [itemHeights],
-  );
-
   const transformOnIndex = useCallback(
     (i: number) => {
       let sum = 0;
@@ -76,6 +70,7 @@ const VirtualList: VirtualListType = ({
 
   const updateItemHeight = useCallback((i_value: number, height: number) => {
     setItemHeights((prev) => {
+      if (prev[i_value] === height) return prev;
       const newHeights = [...prev];
       newHeights[i_value] = height; //索引不存在时，会自动扩展
       return newHeights;
@@ -122,7 +117,7 @@ const VirtualList: VirtualListType = ({
         )
           return;
 
-        if (progress < 0.15) {
+        if (progress < 0.15 && visibleItemIndices[0] > 0) {
           isFetching.current = true;
           setIsLoading(true);
           const prevdata = await loadMore(visibleItemIndices[0], "prev");
@@ -184,6 +179,7 @@ const VirtualList: VirtualListType = ({
         console.error("VirtualList scroll fetch error:", error);
       } finally {
         isFetching.current = false;
+        setIsLoading(false);
       }
     };
 
@@ -217,8 +213,12 @@ const VirtualList: VirtualListType = ({
         {
           position: "relative" as const,
           width: "100%",
-          minHeight: `${minHeight}px`,
-          willChange: "transform",
+          // Normal flow keeps prerendered cards visible before JavaScript loads.
+          // Padding preserves the space of cards removed by virtual scrolling.
+          paddingTop: transformOnIndex(visibleItemIndices[0] ?? 0),
+          paddingBottom: itemHeights
+            .slice((visibleItemIndices.at(-1) ?? -1) + 1)
+            .reduce((sum, height) => sum + height, 0),
         },
         otherprops.style,
       )}
@@ -231,18 +231,11 @@ const VirtualList: VirtualListType = ({
           i_value={visibleItemIndices[i]}
           Elem={Elem}
           source={e}
-          itemHeights={itemHeights}
           updateItemHeight={updateItemHeight}
         />
       ))}
       {Loading && isLoading ? (
-        <div
-          style={{
-            position: "absolute",
-            width: "100%",
-            transform: `translateY(${itemHeights.reduce((sum, height) => (sum += height), 0)}px)`,
-          }}
-        >
+        <div>
           <Loading />
         </div>
       ) : null}
@@ -254,34 +247,28 @@ function ListItem<T extends { id: string | number }>({
   Elem,
   i_value,
   source,
-  itemHeights,
   updateItemHeight,
 }: {
   Elem: Props<T>["Elem"];
   source: T;
   i_value: number;
-  itemHeights: readonly number[];
   updateItemHeight: (i: number, height: number) => void;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const handler = useCallback(() => {
     if (ref.current) {
       const height = ref.current.offsetHeight;
-      if (itemHeights[i_value] === height) return;
-      requestAnimationFrame(() => {
-        updateItemHeight(i_value, height);
-      });
+      updateItemHeight(i_value, height);
     }
   }, [ref, updateItemHeight, i_value]);
 
-  // On window resize
+  // Fonts, images, translations and expanded text can all change a card's height.
   useEffect(() => {
-    const throttled = throttle(handler, 150);
-    globalThis.addEventListener("resize", throttled);
-    return () => {
-      globalThis.removeEventListener("resize", throttled);
-    };
-  }, [ref, i_value, updateItemHeight, handler]);
+    handler();
+    const observer = new ResizeObserver(handler);
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [handler]);
 
   // Height change trigger from child
   const [isHeightChange, triggerHeightChange] = useState(false);
@@ -292,28 +279,11 @@ function ListItem<T extends { id: string | number }>({
     }
   }, [isHeightChange, handler]);
 
-  // Visible after height is set
-  const [isVisible, setIsVisible] = useState(false);
-  useEffect(() => {
-    handler();
-    setIsVisible(true);
-  }, [ref, handler]);
-
-  // Calculate translateY
-  const translateY = useMemo(() => {
-    return itemHeights
-      .slice(0, i_value)
-      .reduce((sum, height) => (sum += height), 0);
-  }, [i_value, itemHeights]);
-
   return (
     <div
       ref={ref}
       style={{
-        position: "absolute",
         width: "100%",
-        transform: `translateY(${translateY}px)`,
-        visibility: isVisible ? "visible" : "hidden",
       }}
     >
       {Elem({

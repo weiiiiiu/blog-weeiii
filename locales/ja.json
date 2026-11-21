@@ -12,7 +12,6 @@
     "tags": "タグ",
     "toc": "目次",
     "friends": "友達",
-    "latestComments": "最新コメント",
     "search": "検索",
     "timeJustNow": "たった今",
     "timeMinutesAgo": "{{count}}分前",
@@ -37,10 +36,6 @@
     "loading": "読み込み中...",
     "imageRetry": "画像を読み込めませんでした。クリックして再試行",
     "mobileMenu": "メニュー",
-    "siteDescription": "仕事と生活についての個人ブログ",
-    "noComments": "コメントはまだありません",
-    "addComment": "コメントする",
-    "postView": "閲覧数",
-    "postComment": "コメント"
+    "siteDescription": "仕事と生活についての個人ブログ"
   }
 }

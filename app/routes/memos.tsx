@@ -1,39 +1,22 @@
-import type { MemoInfo, MemoPostJsx, MemoTag } from "lib/data/memos.common";
-import {
-  MEMO_SEARCH_INDEX_FILE,
-  type MemoSearchObj,
-} from "lib/data/search.common";
-import { toMdxCode } from "lib/md-compile/compile";
-import { remarkTag } from "lib/remark/remark-tag";
-import { createNaive, type Match, type Result } from "lib/search";
+import type {
+  MemoInfo,
+  MemoPostJsx,
+  MemoTag,
+  MemoLoaderData as LoaderData,
+} from "lib/data/memos.common";
 import { MenuSquare } from "lucide-react";
 import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigation, useSearchParams } from "react-router";
-import rehypeHighlight from "rehype-highlight";
-import remarkGfm from "remark-gfm";
 import { siteInfo } from "site.config";
 import { FloatButton } from "~/components/common/FloatButton";
-import CommentModal from "~/components/memo/CommentModal";
 import ImageBrowser from "~/components/memo/ImageBrowser";
 import { MemoCard, MemoLoading, type TMemo } from "~/components/memo/MemoCard";
-import { OverallSkeleton } from "~/components/memo/MemoSkeleton";
 import { Sidebar } from "~/components/memo/Sidebar";
 import VirtualList from "~/components/memo/VirtualList";
-import { parseSearchQuery } from "~/hooks/use-search";
 import type { Route } from "./+types/memos";
 
 const MEMO_CSR_API = "/data/memos";
-
-// --- Type Definitions ---
-type LoaderData = {
-  memos: MemoPostJsx[];
-  info: MemoInfo;
-  tags: MemoTag[];
-  source: "SSG" | "CSR";
-  filterTag?: string;
-  searchQuery?: string;
-};
 
 // --- 1. SSG Loader (Server/Build Time) ---
 export async function loader(): Promise<LoaderData> {
@@ -77,115 +60,12 @@ export async function clientLoader({
     return (await serverLoader()) as LoaderData;
   }
 
-  // Fetch common data for CSR operations
-  const fetchCommonData = async () => {
-    const [info, tags] = await Promise.all([
-      fetch(`${MEMO_CSR_API}/status.json`).then((r) =>
-        r.json(),
-      ) as Promise<MemoInfo>,
-      fetch(`${MEMO_CSR_API}/tags.json`).then((r) => r.json()) as Promise<
-        MemoTag[]
-      >,
-    ]);
-    return { info, tags };
-  };
-
-  // Search result type
-  interface MemoSearchResult extends Result {
-    id: string;
-    content: string;
-    tags: string[];
-    imgs_md: string[];
-    matches: Match[];
-    word_count: number;
-  }
-
-  const { info, tags } = await fetchCommonData();
-
-  // Fetch search index
-  const searchIndex = (await fetch(`/data/${MEMO_SEARCH_INDEX_FILE}`).then(
-    (r) => r.json(),
-  )) as MemoSearchObj[];
-
-  // await new Promise((resolve) => setTimeout(resolve, 300000));
-
-  // Determine search patterns and config based on query type
-  let patterns: string[];
-  let searchConfig: { fields?: Array<keyof MemoSearchObj> } | undefined;
-
-  if (q) {
-    // Parse search query with field syntax support
-    const parsed = parseSearchQuery<MemoSearchObj>(q);
-    patterns = parsed.patterns;
-    searchConfig = parsed.config;
-  } else {
-    // Tag filter: search tags field with exact tag name
-    patterns = [tag!];
-    searchConfig = { fields: ["tags"] };
-  }
-
-  if (patterns.length === 0) {
-    return (await serverLoader()) as LoaderData;
-  }
-
-  // Create search engine and collect results
-  const results: MemoSearchResult[] = [];
-  const engine = createNaive<MemoSearchObj, MemoSearchResult>({
-    data: searchIndex,
-    field: ["tags", "content"],
-    notifier: (res) => {
-      results.length = 0;
-      results.push(...res);
-    },
-    disableStreamNotify: true,
-    buildResult: (obj, matches) => ({
-      id: obj.id,
-      content: obj.content,
-      tags: obj.tags,
-      imgs_md: obj.imgs_md,
-      matches,
-      word_count: obj.word_count,
-    }),
-  });
-
-  await engine.search(patterns, searchConfig);
-
-  // Convert search results to MemoPostJsx (compile markdown to jsx)
-  const memos: MemoPostJsx[] = await Promise.all(
-    results.map(async (r) => {
-      const { code } = await toMdxCode(r.content, {
-        remarkPlugins: [remarkGfm, remarkTag],
-        rehypePlugins: [rehypeHighlight],
-      });
-      return {
-        id: r.id,
-        content_jsx: code,
-        tags: r.tags,
-        imgs_md: r.imgs_md,
-        sourceFile: "",
-        csrIndex: [0, 0] as [number, number],
-        word_count: r.word_count,
-      };
-    }),
-  );
-
-  return {
-    memos,
-    info,
-    tags,
-    source: "CSR",
-    filterTag: tag ?? undefined,
-    searchQuery: q ?? undefined,
-  };
+  const { filterMemos } = await import("lib/data/client/filter-memos");
+  return (await filterMemos(q, tag)) ?? ((await serverLoader()) as LoaderData);
 }
 
-// --- 3. Force clientLoader to run on hydration ---
+// Reapply query filters on direct visits while retaining the prerendered feed.
 clientLoader.hydrate = true as const;
-
-// --- 4. HydrateFallback (prevents flash of SSG content) ---
-export function HydrateFallback() {
-  return <OverallSkeleton />;
-}
 
 // --- 5. Meta ---
 export function meta({}: Route.MetaArgs) {
@@ -207,17 +87,12 @@ export default function MemosPage({ loaderData }: Route.ComponentProps) {
   } = loaderData;
   const [searchParams, setSearchParams] = useSearchParams();
   const [isMobileSider, setIsMobileSider] = useState(false);
-  const [isCommentOpen, setIsCommentOpen] = useState(false);
-  const [clickPosition, setClickPosition] = useState<{
-    x: number;
-    y: number;
-  }>();
   const { t } = useTranslation();
 
   const navigation = useNavigation();
   const isSearching =
     navigation.state === "loading" &&
-    navigation.location.pathname === "/memos" && // refer to ~/routes.ts
+    navigation.location.pathname.replace(/\/$/, "") === "/memos" &&
     navigation.location.search !== "";
 
   const selectedTag = searchParams.get("tag") || filterTag;
@@ -256,12 +131,6 @@ export default function MemosPage({ loaderData }: Route.ComponentProps) {
     [setSearchParams],
   );
 
-  // Handle opening comment modal with click position for animation
-  const handleOpenComment = useCallback((e: React.MouseEvent) => {
-    setClickPosition({ x: e.clientX, y: e.clientY });
-    setIsCommentOpen(true);
-  }, []);
-
   // Fetch more memos for infinite scroll (currently only when not filtered)
   const loadMore = useCallback(
     async (
@@ -281,10 +150,10 @@ export default function MemosPage({ loaderData }: Route.ComponentProps) {
       const indexEnd = (start + batchsize - 1) % 10;
 
       // Check bounds
-      if (pageStart < 0 || pageStart > info.pages) return undefined;
+      if (pageStart < 0 || pageStart >= info.pages) return undefined;
 
       const urls: string[] = [];
-      for (let i = pageStart; i <= Math.min(pageEnd, info.pages); i++) {
+      for (let i = pageStart; i <= Math.min(pageEnd, info.pages - 1); i++) {
         urls.push(`${MEMO_CSR_API}/${i}.json`);
       }
 
@@ -390,14 +259,13 @@ export default function MemosPage({ loaderData }: Route.ComponentProps) {
               </div>
             </div>
 
-            {/* Sidebar wrapper - sized by content (max-w-60), not flex ratio */}
+            {/* Sidebar keeps its desktop width even without comments or tags. */}
             <div className="sticky top-0 flex max-h-screen flex-col">
               <Sidebar
                 info={info}
                 tags={tags}
                 onTagClick={handleTagClick}
                 onSearch={handleSearch}
-                onOpenComment={handleOpenComment}
                 selectedTag={selectedTag}
                 searchQuery={currentSearchQuery}
                 isMobileSider={isMobileSider}
@@ -410,13 +278,6 @@ export default function MemosPage({ loaderData }: Route.ComponentProps) {
 
       {/* Image browser modal */}
       <ImageBrowser />
-
-      {/* Comment modal */}
-      <CommentModal
-        isOpen={isCommentOpen}
-        onClose={() => setIsCommentOpen(false)}
-        clickPosition={clickPosition}
-      />
     </>
   );
 }

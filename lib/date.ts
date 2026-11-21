@@ -18,6 +18,8 @@ function getSiteTimezoneOffset(): number {
   return (localHour - 12) * 60;
 }
 
+const siteTimezoneOffset = getSiteTimezoneOffset();
+
 /**
  * 解析日期字符串为 Date 对象
  * 对于无时区的字符串，按 siteInfo.timeZone 解析
@@ -43,13 +45,14 @@ export function parseDate(str: string | Date): Date {
 
   // 无时区信息，按站点时区解析
   // 格式: "2021-01-01 00:00" 或 "2021-01-01"
-  const normalized = str.replace(" ", "T");
+  const normalized =
+    str.length === 10 ? `${str}T00:00:00` : str.replace(" ", "T");
   const date = new Date(normalized);
 
   if (date.toString() !== "Invalid Date") {
     // 调整时区：浏览器按本地时区解析，需要修正为站点时区
     const localOffset = date.getTimezoneOffset(); // 本地时区偏移（分钟，西为正）
-    const siteOffset = getSiteTimezoneOffset(); // 站点时区偏移（分钟，东为正）
+    const siteOffset = siteTimezoneOffset; // 站点时区偏移（分钟，东为正）
     // 修正公式：UTC = local + localOffset, 站点时间 = UTC + siteOffset
     // 所以：站点时间 = local + localOffset + siteOffset
     // 但我们输入的是站点时间，要得到正确的 UTC：UTC = 输入 - siteOffset
@@ -64,7 +67,7 @@ export function parseDate(str: string | Date): Date {
   const fallbackDate = new Date(dateOnly);
   if (fallbackDate.toString() !== "Invalid Date") {
     const localOffset = fallbackDate.getTimezoneOffset();
-    const siteOffset = getSiteTimezoneOffset();
+    const siteOffset = siteTimezoneOffset;
     return new Date(
       fallbackDate.getTime() - siteOffset * 60 * 1000 - localOffset * 60 * 1000,
     );
@@ -79,18 +82,31 @@ export function parseDate(str: string | Date): Date {
 /**
  * 格式化日期为 "2021-01-01 00:00" 格式（用户本地时区）
  */
-export function dateToYMDHM(d: Date): string {
-  const dateFormatter = new Intl.DateTimeFormat("en-CA", {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: false,
-  });
+const dateFormatters = new Map<string, Intl.DateTimeFormat>();
 
-  const parts = dateFormatter.formatToParts(d);
-  const lookup = Object.fromEntries(parts.map((p) => [p.type, p.value]));
+/** An explicit zone makes SSG and the first client render deterministic. */
+export function getDateParts(d: Date, timeZone?: string) {
+  const key = timeZone ?? "local";
+  let formatter = dateFormatters.get(key);
+  if (!formatter) {
+    formatter = new Intl.DateTimeFormat("en-CA", {
+      timeZone,
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      hourCycle: "h23",
+    });
+    dateFormatters.set(key, formatter);
+  }
+  return Object.fromEntries(
+    formatter.formatToParts(d).map((p) => [p.type, p.value]),
+  );
+}
+
+export function dateToYMDHM(d: Date, timeZone?: string): string {
+  const lookup = getDateParts(d, timeZone);
   // node.js will return "24" for midnight "00". convert to ECMA-402 standard "00"
   const hour = lookup.hour === "24" ? "00" : lookup.hour;
   return `${lookup.year}-${lookup.month}-${lookup.day} ${hour}:${lookup.minute}`;

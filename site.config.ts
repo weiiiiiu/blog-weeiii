@@ -7,7 +7,7 @@ export const siteInfo: SiteInfo = {
   timeZone: "Asia/Shanghai",
   domain: "https://blog.006573.xyz", // 用于生成 RSS 和 sitemap 里的绝对链接
   friends: [],
-  walineApi: "https://comment.006573.xyz", // Waline 评论与浏览量服务端
+  GAId: "G-F06D4HF1ZQ", // GA4 衡量 ID；留空时读取 VITE_GA_ID，两者都为空时不加载统计
 } as const;
 
 type SiteInfo = {
@@ -24,6 +24,5 @@ type SiteInfo = {
 
   // Sites
   domain: string; // Used to generate rss at build time
-  walineApi?: string; // Waline 评论系统后端地址
   GAId?: string; // Google Analytics id
 };

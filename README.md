@@ -15,7 +15,6 @@
 - 支持极速站内搜索
 - 支持 rss 订阅
 - 支持 siteMap 生成，长文 SEO 有优化
-- Waline 评论系统接入
 - 多语言UI
 - ~~精美的 404 页面以告知用户网挺好的~~
 - 快速打包，超小包体，注重渲染优化
@@ -25,7 +24,6 @@
 ## 需要准备
 
 - NodeJS 环境
-- 评论系统：依赖于 [Waline](https://waline.js.org)。不是必须的
 - 站点分析： 依赖于 Google Analystics，不是必须的
 - 你的个性化头像和一张背景图
 
@@ -51,7 +49,6 @@ export const siteInfo = {
   
   // Sites
   domain: "https://sansui233.com", // rss 中显示的域名。不影响实际部署
-  walineApi: serverAPI, // 可选项，Waline 评论系统后端地址。不需要请删除。
   GAId: "G-xxxxxx", // 可选项，可留空。Google Analytics id。不需要请删除。
 }
 ```
@@ -161,7 +158,6 @@ pnpm start # 启动服务（SSG模式）
 - [x] Dark Mode
 - [x] 详细分类页
 - [x] 分页渲染
-- [x] 评论接入
 - [x] 统计接入
 - [x] 站内搜索
 - [ ] 增加微博客内容(相册等)
@@ -174,7 +170,6 @@ pnpm start # 启动服务（SSG模式）
 - 框架：React Router 7
 - MDX parser: mdx-js, velite
 - CSS 方案: Tailwind CSS
-- 评论系统: [Waline](https://waline.js.org)
 - 统计数据: Google Analytics
 - 图标: lucide
 - 部署: github, vercel

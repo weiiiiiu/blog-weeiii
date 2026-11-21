@@ -18,7 +18,7 @@ export async function loader() {
       categories: p.categories,
       description: p.description,
     })),
-    categories: [["All Posts", totalPosts], ...categories],
+    categories: [["All Posts", totalPosts] as [string, number], ...categories],
   };
 }
 

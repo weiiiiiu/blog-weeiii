@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import type veliteConfig from "velite.config";
+import type veliteConfig from "../../../velite.config";
 import {
   MEMO_SEARCH_INDEX_FILE,
   POSTS_SEARCH_INDEX_FILE,

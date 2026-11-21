@@ -79,7 +79,7 @@ export function MemoCard({
   return (
     <section
       ref={ref}
-      className="memocard bg-bg animate-bottom-fade-in p-5 max-[580px]:p-4"
+      className="memocard bg-bg p-5 max-[580px]:p-4"
       {...otherprops}
     >
       <div
@@ -92,7 +92,9 @@ export function MemoCard({
         <div className="flex items-center">
           <img
             className="mr-2 h-7 w-7"
-            src="/logo.png"
+            src="/logo.webp"
+            width={28}
+            height={28}
             alt={siteInfo.author}
           />
           <div className="flex flex-col items-start">
@@ -112,7 +114,7 @@ export function MemoCard({
         <div
           className={`pl-1 min-[580px]:pl-12 ${shouldCollapse ? "pb-8" : ""}`}
         >
-          <div className="markdown-wrapper text-text-secondary [&_h1]:text-base [&_h2]:text-base [&_h3]:text-base [&_h4]:text-base [&_h5]:text-base [&_h6]:text-base [&_ol]:my-4 [&_ol]:leading-7 [&_p]:my-4 [&_p]:leading-7 [&_ul]:my-4 [&_ul]:leading-7">
+          <div className="markdown-wrapper text-text-secondary animate-none [&_h1]:text-base [&_h2]:text-base [&_h3]:text-base [&_h4]:text-base [&_h5]:text-base [&_h6]:text-base [&_ol]:my-4 [&_ol]:leading-7 [&_p]:my-4 [&_p]:leading-7 [&_ul]:my-4 [&_ul]:leading-7">
             {source.content_jsx && (
               <MDXContent
                 code={source.content_jsx}

@@ -131,7 +131,7 @@ export default function Topbar({
         <div className="w-52.5 flex-auto items-center justify-start font-medium max-md:w-25">
           <Link to="/" className="flex items-center px-4">
             <img
-              src="/logo.png"
+              src="/logo.webp"
               width={28}
               height={28}
               alt=""

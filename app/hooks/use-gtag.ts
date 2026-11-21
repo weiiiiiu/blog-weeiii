@@ -1,24 +1,31 @@
-import { useEffect } from "react";
+import { GA_MEASUREMENT_ID } from "lib/analytics";
+import { useEffect, useRef } from "react";
 import { useLocation } from "react-router";
-import { siteInfo } from "site.config";
 
 declare global {
   interface Window {
-    gtag: (...args: any[]) => void;
-    dataLayer: any[];
+    gtag?: (...args: unknown[]) => void;
+    dataLayer?: unknown[];
   }
 }
 
-/** Upload analystics to google when location changed */
+/** One pageview per route/query change; hash-only TOC navigation is excluded. */
 export function useGtag() {
-  if(!siteInfo.GAId) return;
-  const location = useLocation();
+  const { pathname, search } = useLocation();
+  const previousUrl = useRef<string | undefined>(undefined);
+
   useEffect(() => {
-    if (typeof window.gtag !== "undefined") {
-      window.gtag("config", siteInfo.GAId, {
-        page_path: location.pathname,
-      });
-    }
-  }, [location, siteInfo.GAId]);
-  return;
+    if (!GA_MEASUREMENT_ID || !window.gtag) return;
+
+    const url = new URL(pathname + search, window.location.origin).href;
+    if (previousUrl.current === url) return;
+
+    window.gtag("event", "page_view", {
+      send_to: GA_MEASUREMENT_ID,
+      page_location: url,
+      page_title: document.title,
+      page_referrer: previousUrl.current ?? document.referrer,
+    });
+    previousUrl.current = url;
+  }, [pathname, search]);
 }
