@@ -1,0 +1,7 @@
+```mermaid
+flowchart LR
+    A[1. 选卡<br/>看 sm 版本 + 显存] --> B[2. 算显存<br/>权重 + KV + 余量]
+    B --> C[3. 装机<br/>机箱风道 + IPMI]
+    C --> D[4. 部署<br/>vLLM + --dtype half]
+    D --> E[5. 优化<br/>前缀缓存 + 控上下文]
+```
