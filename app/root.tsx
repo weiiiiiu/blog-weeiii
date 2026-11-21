@@ -53,6 +53,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 __html: `
                   window.dataLayer = window.dataLayer || [];
                   function gtag(){dataLayer.push(arguments);}
+                  // Apply before tag initialization, including tags that initialize without config.
+                  gtag('set', 'send_page_view', false);
                   gtag('js', new Date());
                   gtag('config', '${GA_MEASUREMENT_ID}', { send_page_view: false });
                 `,

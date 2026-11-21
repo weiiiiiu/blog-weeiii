@@ -27,7 +27,7 @@ GAId: "G-你的衡量ID",
 ## 统计行为
 
 - 只有合法的 `G-` 衡量 ID 才会加载外部脚本。
-- 初始化设置 `send_page_view: false`，由路由 hook 发送一次首访事件。
+- 在 `gtag('js', ...)` 之前通过 `gtag('set', 'send_page_view', false)` 全局关闭自动首访，并保留 `config` 中的相同设置以兼容旧标签；由路由 hook 发送一次首访事件。
 - 页面路径或查询条件变化时发送一次 page_view，包含页面标题、完整页面 URL 和上一页 URL。
 - 目录锚点等纯 hash 变化不增加浏览量。
 - 网站不提供评论或文章阅读计数，访问统计统一在 Google Analytics 后台查看。
@@ -35,3 +35,5 @@ GAId: "G-你的衡量ID",
 ## 验证
 
 发布后访问首页，再点开一篇文章。在 GA「实时」报告确认访问；浏览器网络中应出现携带正确衡量 ID 的 Google tag 和统计请求。每次页面跳转应只记录一次 page_view。浏览器拦截统计脚本时，该访问可能不会被记录。
+
+Google 新版标签可在脚本加载时直接初始化，不再等待页面中的 `config` 参数；仅在 `config` 中设置 `send_page_view: false` 可能仍产生自动首访。参考：[初始化兼容行为](https://support.google.com/analytics/answer/18411054?hl=en)、[全局 send_page_view 配置](https://developers.google.com/analytics/devguides/collection/ga4/reference/config#send_page_view)。
