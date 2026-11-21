@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 900 330" style="background:#ffffff;max-width:900px;" role="img" aria-labelledby="basic-title basic-desc">
+<title id="basic-title">默认文生图工作流：7 个节点</title>
+<desc id="basic-desc">加载底模型、写正向和负向提示词、定画布尺寸、采样器去噪出图、VAE 解码成图片、保存到 output 文件夹。</desc>
+<style>
+  .box{fill:#f2f5f8;stroke:#596675;stroke-width:1.5px;}
+  .box-hl{fill:#e3f0f7;stroke:#2f6f8f;stroke-width:2px;}
+  .t{font-family:Arial,PingFang SC,Microsoft YaHei,sans-serif;font-size:16px;font-weight:bold;fill:#17212d;text-anchor:middle;}
+  .s{font-family:Arial,PingFang SC,Microsoft YaHei,sans-serif;font-size:14px;fill:#4a5a6a;text-anchor:middle;}
+  .title{font-family:Arial,PingFang SC,Microsoft YaHei,sans-serif;font-size:22px;font-weight:bold;fill:#17212d;text-anchor:middle;}
+  .note{font-family:Arial,PingFang SC,Microsoft YaHei,sans-serif;font-size:16px;fill:#596675;text-anchor:middle;}
+  .arrow{stroke:#596675;stroke-width:2px;fill:none;}
+</style>
+<defs>
+  <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M 0 0 L 10 5 L 0 10 z" fill="#596675"/>
+  </marker>
+</defs>
+
+<text class="title" x="450" y="28">默认文生图工作流：7 个节点</text>
+
+<g>
+  <rect class="box" x="20" y="60" width="200" height="64" rx="10"/>
+  <text class="t" x="120" y="88">Load Checkpoint</text>
+  <text class="s" x="120" y="110">底模型 · 三路输出</text>
+  <rect class="box" x="350" y="60" width="200" height="64" rx="10"/>
+  <text class="t" x="450" y="88">CLIP Encode ×2</text>
+  <text class="s" x="450" y="110">正向 + 负向提示词</text>
+  <rect class="box" x="680" y="60" width="200" height="64" rx="10"/>
+  <text class="t" x="780" y="88">Empty Latent</text>
+  <text class="s" x="780" y="110">512×512 画布</text>
+  <path class="arrow" d="M220 92 H350" marker-end="url(#ah)"/>
+  <path class="arrow" d="M550 92 H680" marker-end="url(#ah)"/>
+</g>
+
+<path class="arrow" d="M780 124 V160 H120 V200" marker-end="url(#ah)"/>
+
+<g>
+  <rect class="box-hl" x="20" y="200" width="200" height="64" rx="10"/>
+  <text class="t" x="120" y="228">KSampler</text>
+  <text class="s" x="120" y="250">去噪出图</text>
+  <rect class="box" x="350" y="200" width="200" height="64" rx="10"/>
+  <text class="t" x="450" y="228">VAE Decode</text>
+  <text class="s" x="450" y="250">潜空间 → 图片</text>
+  <rect class="box" x="680" y="200" width="200" height="64" rx="10"/>
+  <text class="t" x="780" y="228">Save Image</text>
+  <text class="s" x="780" y="250">存到 output 文件夹</text>
+  <path class="arrow" d="M220 232 H350" marker-end="url(#ah)"/>
+  <path class="arrow" d="M550 232 H680" marker-end="url(#ah)"/>
+</g>
+
+<text class="note" x="450" y="305">Load Checkpoint 分三路：MODEL → KSampler，CLIP → 提示词，VAE → VAE Decode</text>
+</svg>
