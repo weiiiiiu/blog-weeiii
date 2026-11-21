@@ -17,7 +17,7 @@
 - [x] 编写完整企业流程教程与图解。
 - [x] 生成合成业务数据练习包。
 - [x] 验证命令、资料包、图表和博客构建。
-- [ ] 发布并验收正式页面。
+- [x] 发布并验收正式页面。
 
 ## 验证说明
 
@@ -44,3 +44,16 @@
 - 文章引用的 10 个固定版本文档路径均在官方仓库存在。
 - 本地验收记录：`/tmp/blog-paper-dsh-local-browser.json`；构建记录：`/tmp/blog-paper-dsh-build.log`。
 - 提交前再次校验三篇原有文章的 SHA-256，确认未改动它们。
+
+## 发布与线上验收
+
+- 教程提交：`fea6e5f69151e31062c0eaf0d9ce8df81944232b`。
+- 推送前发现远端新增 `8939d27` 测试文章，保留并合并；发布提交：`32cdcf6e3e065f6ef6c001cfd457a95c66613a7e`。
+- 合并后的独立构建再次通过，共 220 篇文章；教程编译正文与已验收版本一致，15 份静态文件与工作区逐字节一致。
+- CSV 统一为 LF 换行，记录内容未改变；ZIP 八个条目与对应文件一致。
+- Cloudflare Pages 部署成功：`cdcfb2c2-9f5e-4ba0-9c7e-0aef640ff3d6`。
+- 正式地址：<https://blog.006573.xyz/posts/deepseek-harness-enterprise-workflow>。
+- 正式站点的桌面、手机、手机深色模式均通过浏览器验收，无页面异常或横向溢出，三张图正常加载。
+- 全部 15 份公开文件（图表、Mermaid、模拟资料及 ZIP）下载内容与本地一致；首页、站点地图、RSS 和搜索索引均有新文章。
+- 验收记录：`/tmp/blog-paper-dsh-live-browser.json`、`/tmp/blog-paper-dsh-live-assets.json`、`/tmp/blog-paper-dsh-deploy.json`。
+- 本次测试启动的 4180、4177 临时服务已停止；没有配置真实模型密钥，没有调用真实企业系统。
