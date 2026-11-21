@@ -15,5 +15,15 @@
 - [x] 核对正文、项目文档和现有文章格式，未发现同主题笔记。
 - [x] 新增 `content/posts/next-ai-drawio-notes.md`，分类 AI，保留来源链接。
 - [x] 独立发布目录构建通过，文章总数 213；新笔记已进入文章页面、首页、搜索、RSS 和 sitemap。
-- [ ] 提交并推送新增文章及发布记录，保留既有文章编辑和私有代理脚本。
-- [ ] 确认 Cloudflare 部署完成并验收正式文章页面。
+- [x] 提交并推送新增文章及发布记录，保留既有文章编辑和私有代理脚本。
+- [x] 确认 Cloudflare 部署完成并验收正式文章页面。
+
+## 发布结果
+
+- 文章：<https://blog.006573.xyz/posts/next-ai-drawio-notes>。
+- 生产提交：`dd5bea72a0d7ddbae8561abfb5ee5fd6a0ade917`。
+- Cloudflare Pages 部署：`17a334c3-7929-41b8-a668-d3fe3f6c16bf`，结果 `success`。
+- 正式首页、搜索索引、RSS 和 sitemap 均包含新文章。
+- 桌面 1365px 与手机 390px 浏览器验证均 HTTP 200，8 个章节、5 个代码块、2 个表格和原文链接完整，无横向页面溢出及浏览器错误；已查看两种尺寸的页面截图。
+- 验证时拦截 Google 请求，避免将验收访问计入 GA。
+- 证据：`/tmp/blog-paper-drawio-note-browser.json`、`/tmp/blog-paper-drawio-note-live-entries.json`、`/tmp/blog-paper-drawio-note-deploy.json`。
