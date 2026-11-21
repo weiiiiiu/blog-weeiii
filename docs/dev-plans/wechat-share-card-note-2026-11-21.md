@@ -16,5 +16,15 @@
 - [x] 核对原文、Open Graph 属性和微信分享接口前提。
 - [x] 新增 `content/posts/wechat-link-share-card-notes.md`，分类为开发。
 - [x] 独立目录构建通过，文章总数 214；新文章已进入首页、开发分类、搜索、RSS 和 sitemap；HTML 示例保留在正文代码块中，未污染页面真实元数据。
-- [ ] 提交新增文章和发布记录，推送 Cloudflare Pages 部署。
-- [ ] 验收正式文章的桌面与手机显示，确认上线入口。
+- [x] 提交新增文章和发布记录，推送 Cloudflare Pages 部署。
+- [x] 验收正式文章的桌面与手机显示，确认上线入口。
+
+## 发布结果
+
+- 文章：<https://blog.006573.xyz/posts/wechat-link-share-card-notes>。
+- 生产提交：`91e8aeea3ba43253bd79b76709e18f7ffe1821f1`。
+- Cloudflare Pages 部署：`d463ac8b-dfbb-4d3c-a0f0-05d892f36797`，检查结果 `success`。
+- 正式首页、开发分类、搜索、RSS 和 sitemap 已包含文章。
+- 桌面 1365px 与手机 390px 浏览器验证均 HTTP 200，7 个章节、4 个代码块、2 个表格及原文链接完整，无页面横向溢出或浏览器错误；页面截图已检查。
+- 验收请求拦截了 Google 脚本，未向 GA 上报测试访问；本次验证文章页面，不代表已在微信客户端验证卡片表现。
+- 证据：`/tmp/blog-paper-wechat-note-browser.json`、`/tmp/blog-paper-wechat-note-live-entries.json`、`/tmp/blog-paper-wechat-note-deploy.json`。
