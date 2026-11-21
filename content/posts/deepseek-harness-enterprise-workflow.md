@@ -28,6 +28,10 @@ draft: false
 
 版本注意：本文按 `@deepseek-ai/dsh` **0.2.2-rc.5** 写，官方标的是开发者预览，明确说了不能当生产软件用。这里讲的是能搭起来的流程和试点方法，不是一套现成的客服系统。[官方说明](https://github.com/deepseek-ai/deepseek-harness/blob/2e39e70496aa02986ca6a820c5d497e816b69d7e/README.zh.md)、[项目安全说明](https://github.com/deepseek-ai/deepseek-harness/blob/2e39e70496aa02986ca6a820c5d497e816b69d7e/SAFETY.zh.md)
 
+![一张图看懂：DeepSeek Harness 怎么办工单](/imgs/learning-notes/deepseek-harness-overview.svg)
+
+[查看大图](/imgs/learning-notes/deepseek-harness-overview.svg) · [Mermaid 源码](/diagrams/learning-notes/deepseek-harness-overview.mmd)
+
 ## 公司要先接好哪些能力
 
 这些不是 Harness 自带的，是公司要提供的查询和操作：
