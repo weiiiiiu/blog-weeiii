@@ -1,0 +1,32 @@
+sequenceDiagram
+  accTitle: 对已有画布进行一次局部修改
+  accDescr: 读取选区和最新 XML，使用节点 ID 提交完整替换，遇到状态变化则重新构建修改，成功后同步预览并验收。
+  autonumber
+  participant U as 人与画布
+  participant A as AI 客户端
+  participant M as MCP 与状态
+  U->>U: 拖动节点，选中发布框
+  U->>M: 浏览器同步手动修改
+  U->>A: 仅给选中框改名
+  A->>M: get_selection()
+  M->>U: 请求当前选区
+  U-->>M: 页面与节点 ID
+  M-->>A: 选区 ID 和摘要
+  A->>M: get_diagram()，读取未知状态
+  M->>U: 请求同步最新 XML
+  U-->>M: 当前文档
+  M-->>A: XML，记录模型已见状态
+  A->>M: edit_diagram，按 ID 完整替换节点
+  alt 状态已变化或操作无效
+    M-->>A: 不写入，返回原因和当前 XML
+    A->>A: 根据新状态重建修改，再重试
+  else 状态与操作均通过检查
+    M->>M: 原子写入，保留旧版本并自动保存
+    M-->>A: 编辑成功
+    U->>M: 浏览器轮询新状态
+    M-->>U: 新 XML，更新画布
+  end
+  opt 修改成功后
+    A->>M: 读取结果 / 请求截图
+    A-->>U: 核对文字、坐标、连线与视觉效果
+  end

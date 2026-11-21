@@ -1,0 +1,30 @@
+sequenceDiagram
+  accTitle: 微信 JS-SDK 从签名到设置分享内容
+  accDescr: 网页将去除片段的当前 URL 发给后端；后端复用票据或从微信获取票据，计算 SHA-1 并返回公开配置；验证成功后设置分享内容，用户再独立完成分享。
+  autonumber
+  participant P as 微信内网页
+  participant B as 站点后端
+  participant W as 微信服务 / 客户端
+  P->>B: 当前页面 URL，去除片段
+  B->>B: 校验来源，读取票据缓存
+  opt 票据缺失或将过期
+    B->>W: 必要时获取 access_token
+    W-->>B: token 响应；有效缓存可跳过这一步
+    B->>W: access_token 换 jsapi_ticket
+    W-->>B: ticket 与 expires_in
+    B->>B: 缓存并合并并发刷新
+  end
+  B->>B: ticket + nonce + timestamp + URL
+  B->>B: 按规定拼接原始字符串，计算 SHA-1
+  B-->>P: appId、nonceStr、timestamp<br/>以及 signature
+  Note over P,B: appSecret、access_token、ticket 留在后端
+  P->>W: wx.config，声明所需接口
+  alt 验证失败
+    W-->>P: wx.error，记录具体错误
+  else 验证通过
+    W-->>P: wx.ready
+    P->>W: updateAppMessageShareData
+    P->>W: updateTimelineShareData
+    W-->>P: 设置结果，不代表用户已分享
+    Note over P,W: 用户随后手动发起分享，检查接收端
+  end
