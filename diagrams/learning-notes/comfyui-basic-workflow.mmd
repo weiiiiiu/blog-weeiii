@@ -1,0 +1,8 @@
+```mermaid
+flowchart TD
+    A[Load Checkpoint<br/>底模型 · 三路输出] --> B[CLIP Encode ×2<br/>正向 + 负向提示词]
+    B --> C[Empty Latent<br/>512×512 画布]
+    C --> D[KSampler<br/>去噪出图]
+    D --> E[VAE Decode<br/>潜空间 → 图片]
+    E --> F[Save Image<br/>存到 output 文件夹]
+```
