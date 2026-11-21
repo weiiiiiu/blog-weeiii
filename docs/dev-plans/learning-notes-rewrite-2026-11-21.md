@@ -14,7 +14,7 @@
 - [x] 对照 Draw.io 源码提交 `9534a668e3bd53f9c08aa5b8d2d77f409ccd09d4` 与微信官方 JS-SDK 文档核实细节。
 - [x] 重写正文、生成图表并检查示例。
 - [x] 隔离构建与桌面、手机、深浅色展示验收。
-- [ ] 发布原地址更新并验证生产内容。
+- [x] 发布原地址更新并验证生产内容。
 
 ## 图表维护
 
@@ -35,3 +35,13 @@
 - 图表截图已检查；移动端可通过“查看大图”打开原始矢量图放大阅读。
 - 发布前证据：`/tmp/blog-paper-learning-local-browser.json`、`/tmp/blog-paper-learning-build.log`。
 - 隔离构建未包含用户另外三篇文章的本地修改及 `1.js`，文件哈希保持不变。
+
+## 上线结果
+
+- 生产提交：`2b37f044e8be229ae7384bf41e97d29282402fe0`。
+- Cloudflare Pages：`2eeb8b53-6cf8-43c8-999e-f3f3aa982b04`，检查结果 `success`。
+- Draw.io 笔记：<https://blog.006573.xyz/posts/next-ai-drawio-notes>。
+- 微信分享笔记：<https://blog.006573.xyz/posts/wechat-link-share-card-notes>。
+- 正式页面在桌面、手机与手机深色模式的六组浏览器检查均通过，四张 SVG 正常加载，无页面异常和横向溢出。
+- 发布验收拦截 Google 统计脚本，不向 GA 发送验收访问；未向博客注入示例微信 SDK。
+- 生产证据：`/tmp/blog-paper-learning-live-browser.json`、`/tmp/blog-paper-learning-live-assets.json`、`/tmp/blog-paper-learning-deploy.json`。
