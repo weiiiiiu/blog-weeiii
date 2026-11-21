@@ -1,0 +1,22 @@
+sequenceDiagram
+  accTitle: 自定义公告轨道的切换和取消时序
+  accDescr: 页面在停留后发起移动，渲染层报告结束后才执行副本复位；隐藏页面取消等待并使旧任务失效。
+  participant P as 页面生命周期
+  participant S as 调度状态
+  participant V as 视图与轨道
+  P->>S: 页面就绪且可见，允许播放
+  S->>S: 停留约 5000 ms
+  S->>V: setData 更新目标位移
+  V->>V: transition 执行约 600 ms
+  Note over S,V: JS 计时到点不代表动画已结束
+  V-->>S: 轨道 transitionend
+  alt 到达首条副本
+    S->>V: 关闭过渡，位移归零
+    V-->>S: 本次视图更新完成
+  else 仍在真实项
+    S->>S: 保留当前物理下标
+  end
+  S->>S: 重新开始停留
+  P->>S: onHide 或 onUnload
+  S->>S: 清理定时器，增加任务代次
+  Note over S,V: 迟到回调不得启动下一次移动

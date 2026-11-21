@@ -1,0 +1,14 @@
+flowchart TD
+  accTitle: Figma 中可编辑的页面与卡片结构
+  accDescr: 页面由自动布局容器组织，卡片实例接收主组件样式，内部图标、标题和说明保留为独立可编辑节点。
+  P["页面 Frame<br/>观察视口与滚动区域"] --> H["页头 Auto Layout<br/>标题 Text · 介绍 Text"]
+  P --> R["工具区域 Auto Layout<br/>间距与列宽由父级约束"]
+  R --> I1["卡片实例：图片压缩"]
+  R --> I2["卡片实例：格式转换"]
+  M["ToolCard 主组件<br/>统一圆角、内距与样式"] -.->|"样式同步"| I1
+  M -.->|"样式同步"| I2
+  I1 --> V["图标<br/>可编辑矢量或明确的图片资产"]
+  I1 --> T["标题 Text<br/>宽度 Fill · 高度随文案增长"]
+  I1 --> D["说明 Text<br/>宽度 Fill · 高度随文案增长"]
+  classDef component fill:#f0edff,stroke:#7566a6,color:#17212d
+  class M,I1,I2 component
