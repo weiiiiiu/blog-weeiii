@@ -27,6 +27,16 @@
 - [x] 同步接入文档，说明全局设置和新版初始化行为。
 - [x] 独立发布目录生产构建、类型检查通过，254 个 HTML 均在初始化之前包含全局关闭设置。
 - [x] 生产包加载真实 Google 标签、拦截上报验证：首页累计一次、文章累计两次、锚点仍为两次；无请求失败或浏览器错误。结果：`/tmp/blog-paper-ga4-fixed-production.json`。
-- [ ] 发布修复并验证真实线上首访、文章跳转及锚点变化。
+- [x] 发布修复并验证真实线上首访、文章跳转及锚点变化。
 
 证据：`/tmp/blog-paper-ga4-network-initial.json`、`/tmp/blog-paper-ga4-network-diagnostic.json`、`/tmp/blog-paper-ga4-init-comparison.json`。
+
+## 修复发布结果
+
+- 生产提交：`00d2a86bd201d87c18498d1aae63dcc2f23f4a48`。
+- Cloudflare Pages 部署：`62954195-33b0-481e-b1b5-d4265f052ced`，检查结果 `success`。
+- 正式域名首页、文章和动态 HTML 均已包含提前设置的全局 `send_page_view=false`。
+- 真实浏览器未拦截 Google 请求：脚本 HTTP 200；首页一次 `page_view`、进入文章新增一次，两个请求均携带 `G-F06D4HF1ZQ` 并得到 HTTP 204；锚点变化不增加 `page_view`；无请求失败或浏览器错误。
+- 最终证据：`/tmp/blog-paper-ga4-fixed-live.json`。HTTP 204 验证接收接口成功响应，GA 后台报表是否已展示仍需用户确认。
+
+本轮真实诊断访问可能出现在实时报告中，包括修复前用于发现问题的重复事件。此次修复防止后续首访重复，不回写历史统计。
