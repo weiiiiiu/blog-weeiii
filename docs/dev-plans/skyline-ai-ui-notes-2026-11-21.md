@@ -16,7 +16,7 @@
 - [x] 读取两篇原文并核对官方资料。
 - [x] 编写详细学习笔记与图表。
 - [x] 验证代码示例、排版及隔离生产构建。
-- [ ] 发布并核对线上页面和资源。
+- [x] 发布并核对线上页面和资源。
 
 ## 验证边界
 
@@ -42,3 +42,15 @@
 - 四份 SVG 均可独立解析，含无障碍标题，无 script 或 foreignObject。
 - 验收浏览器拦截 Google 统计脚本，不向 GA 发送测试事件。
 - 证据：`/tmp/blog-paper-skyline-ai-build.log`、`/tmp/blog-paper-skyline-ai-local-browser.json`。
+
+## 上线验收
+
+- 生产提交：`48070d6c30ebf09c2532542cf3472a6d7d41aa59`。
+- Cloudflare Pages 部署 `1605f0a5-99a4-4708-b9f4-ce0ca6e9683c` 成功。
+- Skyline 笔记：<https://blog.006573.xyz/posts/skyline-notice-carousel-notes>。
+- AI UI 笔记：<https://blog.006573.xyz/posts/ai-ui-design-workflow-notes>。
+- 正式页面六组浏览器检查全部通过；来源链接、图片和源码入口正确，无页面错误和横向溢出。
+- 四张 SVG 与四份 Mermaid 源码均与本地发布文件逐字节一致。
+- 正式首页、RSS、搜索索引和 sitemap 均已包含两篇新文章。
+- 三篇原有 vibe-coding 文件内容哈希保持不变；本次本地预览服务已停止。
+- 证据：`/tmp/blog-paper-skyline-ai-deploy.json`、`/tmp/blog-paper-skyline-ai-live-browser.json`、`/tmp/blog-paper-skyline-ai-live-assets.json`。
