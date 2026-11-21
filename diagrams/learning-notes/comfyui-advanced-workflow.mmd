@@ -1,0 +1,12 @@
+```mermaid
+flowchart LR
+    subgraph LoRA[LoRA]
+        A1[Load Checkpoint] --> B1[LoraLoader<br/>强度 0.6–0.9] --> C1[KSampler]
+    end
+    subgraph ControlNet[ControlNet]
+        A2[参考图] --> B2[预处理器<br/>Canny · Depth · OpenPose] --> C2[ControlNetApply<br/>强度 0.5–0.8] --> D2[KSampler]
+    end
+    subgraph Upscale[放大]
+        A3[KSampler 出图] --> B3[放大 ×2] --> C3[VAE Encode] --> D3[KSampler<br/>denoise 0.3–0.5]
+    end
+```
