@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 900 280" style="background:#ffffff;max-width:900px;" role="img" aria-labelledby="srv-title srv-desc">
+<title id="srv-title">从买卡到跑起来：五步</title>
+<desc id="srv-desc">选卡看 sm 版本和显存，算显存用权重加 KV Cache 加余量，装机靠服务器机箱风道和 IPMI，部署用 vLLM 加 dtype half，优化靠前缀缓存和控制上下文。V100 三条红线：AWQ 不可用，不支持 BF16 和 FP8，FP16 最稳。</desc>
+<style>
+  .box{fill:#f2f5f8;stroke:#596675;stroke-width:1.5px;}
+  .warn{fill:#fef6e0;stroke:#d9a441;stroke-width:1.5px;}
+  .t{font-family:Arial,PingFang SC,Microsoft YaHei,sans-serif;font-size:17px;font-weight:bold;fill:#17212d;text-anchor:middle;}
+  .s{font-family:Arial,PingFang SC,Microsoft YaHei,sans-serif;font-size:13px;fill:#4a5a6a;text-anchor:middle;}
+  .title{font-family:Arial,PingFang SC,Microsoft YaHei,sans-serif;font-size:22px;font-weight:bold;fill:#17212d;text-anchor:middle;}
+  .w{font-family:Arial,PingFang SC,Microsoft YaHei,sans-serif;font-size:16px;fill:#7a5b12;text-anchor:middle;}
+  .wb{font-family:Arial,PingFang SC,Microsoft YaHei,sans-serif;font-size:16px;font-weight:bold;fill:#7a5b12;text-anchor:middle;}
+  .arrow{stroke:#596675;stroke-width:2px;fill:none;}
+</style>
+<defs>
+  <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M 0 0 L 10 5 L 0 10 z" fill="#596675"/>
+  </marker>
+</defs>
+
+<text class="title" x="450" y="28">从买卡到跑起来：五步</text>
+
+<g>
+  <rect class="box" x="10" y="52" width="160" height="64" rx="10"/>
+  <text class="t" x="90" y="80">1. 选卡</text>
+  <text class="s" x="90" y="102">看 sm 版本 + 显存</text>
+  <rect class="box" x="190" y="52" width="160" height="64" rx="10"/>
+  <text class="t" x="270" y="80">2. 算显存</text>
+  <text class="s" x="270" y="102">权重 + KV + 余量</text>
+  <rect class="box" x="370" y="52" width="160" height="64" rx="10"/>
+  <text class="t" x="450" y="80">3. 装机</text>
+  <text class="s" x="450" y="102">机箱风道 + IPMI</text>
+  <rect class="box" x="550" y="52" width="160" height="64" rx="10"/>
+  <text class="t" x="630" y="80">4. 部署</text>
+  <text class="s" x="630" y="102">vLLM + --dtype half</text>
+  <rect class="box" x="730" y="52" width="160" height="64" rx="10"/>
+  <text class="t" x="810" y="80">5. 优化</text>
+  <text class="s" x="810" y="102">前缀缓存 + 控上下文</text>
+  <path class="arrow" d="M170 84 H190" marker-end="url(#ah)"/>
+  <path class="arrow" d="M350 84 H370" marker-end="url(#ah)"/>
+  <path class="arrow" d="M530 84 H550" marker-end="url(#ah)"/>
+  <path class="arrow" d="M710 84 H730" marker-end="url(#ah)"/>
+</g>
+
+<rect class="warn" x="20" y="160" width="860" height="88" rx="10"/>
+<text class="wb" x="450" y="194">V100 三条红线</text>
+<text class="w" x="450" y="222">AWQ 不可用（vLLM 要求 sm_75+）· 不支持 BF16 / FP8 · FP16 最稳，启动必加 --dtype half</text>
+</svg>
