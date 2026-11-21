@@ -17,7 +17,7 @@
 - [x] 前两篇正文开头添加明确的原文链接。
 - [x] 编写两篇新笔记、图解与可验证示例。
 - [x] 隔离构建与桌面、手机、深色模式验收。
-- [ ] 推送发布并验证四篇原文链接与新增内容。
+- [x] 推送发布并验证四篇原文链接与新增内容。
 
 ## 示例验证
 
@@ -37,3 +37,13 @@
 - 原两篇及新两篇的首个引用块均显示“原文链接”，地址分别与四篇微信来源对应。
 - 文章中的示例保持为代码文本，未向博客注入 Glisse 样式或新增运行时依赖。
 - 证据：`/tmp/blog-paper-capsule-glisse-local-browser.json`、`/tmp/blog-paper-capsule-glisse-build.log`、`/tmp/blog-paper-glisse-example-browser.json`。
+
+## 上线验收
+
+- 发布提交：`83ddb16a61229dc923f5c500ccd55e006a528499`。
+- Cloudflare Pages 部署 `f30c43d3-7c72-452f-a9b4-336cb105ae3e` 已成功。
+- 新文章：<https://blog.006573.xyz/posts/miniprogram-capsule-guide-notes>、<https://blog.006573.xyz/posts/glisse-liquid-glass-notes>。
+- 正式站点八组浏览器检查通过：新增两篇各桌面、手机与手机深色模式，原两篇各桌面；四篇原文链接正确，图解加载正常，无横向溢出或页面异常。
+- 七个新增公开资源（四张 SVG、三份 Mermaid 源码）与本地发布文件逐字节一致。
+- 三篇原有 vibe-coding 文件的内容哈希保持不变，未包含在本次提交中。
+- 证据：`/tmp/blog-paper-capsule-glisse-deploy.json`、`/tmp/blog-paper-capsule-glisse-live-browser.json`、`/tmp/blog-paper-capsule-glisse-live-assets.json`。
