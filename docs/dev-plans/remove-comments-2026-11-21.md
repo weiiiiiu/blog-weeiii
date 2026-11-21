@@ -13,4 +13,4 @@
 
 浏览器检查结果：`/tmp/blog-paper-no-comments-results.json`。桌面和手机截图分别为 `/tmp/blog-paper-no-comments-desktop.png`、`/tmp/blog-paper-no-comments-mobile.png`。
 
-仅修改博客项目，不操作远端评论服务或已有评论数据。GA 接入代码保留；本次未部署。后续衡量 ID 配置见 [GA4 配置验证](./ga4-configuration-2026-11-21.md)。
+仅修改博客项目，不操作远端评论服务或已有评论数据。GA 接入代码保留，衡量 ID 配置见 [GA4 配置验证](./ga4-configuration-2026-11-21.md)。已于 2026-11-21 [部署上线](./deploy-ga4-performance-2026-11-21.md)，正式网站不再加载评论功能。
