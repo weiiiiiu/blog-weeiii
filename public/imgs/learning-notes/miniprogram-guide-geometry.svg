@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="740" height="640" viewBox="0 0 740 640" role="img" aria-labelledby="title desc" style="background:#fff">
+<title id="title">胶囊引导气泡的坐标计算</title>
+<desc id="desc">示例窗口宽390像素，胶囊左右边界290和377、底部76；气泡左97、顶88、宽280，箭头位于气泡内236.5处，指向整个胶囊中心333.5。</desc>
+<defs><marker id="arrow" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto-start-reverse"><path d="M0 0L6 3L0 6Z" fill="#477596"/></marker></defs>
+<rect x="0" y="0" width="740" height="640" fill="#fff"/>
+<g font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" fill="#182530">
+<text x="28" y="34" font-size="22" font-weight="600">先定位主体，再计算箭头</text>
+<text x="28" y="61" font-size="15" fill="#526574">演算示例 · 单位均为 px · 页面原点与屏幕原点一致</text>
+<rect x="60" y="110" width="487.5" height="310" rx="12" fill="#f3f6f9" stroke="#9aabba"/>
+<text x="72" y="137" font-size="14" fill="#526574">屏幕顶部</text>
+<line x1="60" y1="91" x2="547.5" y2="91" stroke="#477596" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+<text x="230" y="85" font-size="16">窗口宽 W = 390</text>
+<rect x="422.5" y="165" width="108.75" height="40" rx="20" fill="#fff" stroke="#344b5d" stroke-width="1.5"/>
+<text x="442" y="190" font-size="22">···</text><line x1="483" y1="174" x2="483" y2="195" stroke="#b2bfca"/><circle cx="508" cy="185" r="8" fill="none" stroke="#344b5d" stroke-width="2"/>
+<line x1="422.5" y1="144" x2="422.5" y2="164" stroke="#6a8295"/><line x1="531.25" y1="144" x2="531.25" y2="164" stroke="#6a8295"/>
+<text x="381" y="153" font-size="14">L290</text><text x="538" y="156" font-size="14">R377</text>
+<line x1="548" y1="205" x2="548" y2="220" stroke="#477596" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+<text x="565" y="210" font-size="15">B = 76</text><text x="565" y="233" font-size="15">主体间距 g = 12</text>
+<rect x="181.25" y="220" width="350" height="100" rx="15" fill="#242424"/>
+<path d="M466.875 220L476.875 210L486.875 220Z" fill="#242424"/>
+<text x="201" y="253" font-size="17" fill="#fff">打开右上角菜单，添加到</text>
+<text x="201" y="280" font-size="17" fill="#fff">我的小程序，下次更方便找到。</text>
+<text x="505" y="246" font-size="24" fill="#fff">×</text>
+<line x1="476.875" y1="185" x2="476.875" y2="361" stroke="#e19731" stroke-width="1.5" stroke-dasharray="5 4"/>
+<circle cx="476.875" cy="185" r="3" fill="#e19731"/>
+<line x1="181.25" y1="342" x2="531.25" y2="342" stroke="#477596" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+<text x="280" y="336" font-size="16">气泡宽 w = 280</text>
+<line x1="181.25" y1="375" x2="476.875" y2="375" stroke="#477596" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+<text x="218" y="398" font-size="15">箭头局部坐标 a = 236.5</text>
+<line x1="60" y1="220" x2="181.25" y2="220" stroke="#477596" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+<text x="71" y="244" font-size="15">x = 97</text>
+<rect x="28" y="447" width="684" height="163" rx="12" fill="#edf3f7"/>
+<text x="47" y="476" font-size="17">1. 气泡右边跟随胶囊，遇到窗口边界时限制主体位置。</text>
+<text x="47" y="509" font-size="17">2. 箭头位置 = 胶囊中心 − 气泡左边，主体移动后也要重算。</text>
+<text x="47" y="542" font-size="17">3. 目标是整个胶囊中心 c = 333.5，不是内部 ··· 的精确位置。</text>
+<text x="47" y="579" font-size="15" fill="#526574">不同导航模式先换算原点；不要把接口返回的 px 直接改写成 rpx。</text>
+</g>
+</svg>

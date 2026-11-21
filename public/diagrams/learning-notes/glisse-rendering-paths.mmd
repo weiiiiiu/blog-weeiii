@@ -1,0 +1,14 @@
+flowchart TB
+  accTitle: Glisse 0.6.0 的玻璃渲染分支
+  accDescr: Glass 挂载后寻找相交且非祖先后代关系的已标记背景，按浏览器选择 WebGL 绘制、SVG 内容滤镜、实时背景滤镜或磨砂高光降级。
+  G["Glass 挂载\n读取尺寸、圆角和材质参数"] --> M{"找到相交的\ndata-glisse-backdrop？"}
+  M -->|"有"| W{"命中 WebKit 路径\n且 WebGL 2 可用？"}
+  W -->|"是"| D["WebGL 绘制\n纹理采样与边缘合成"]
+  W -->|"否"| S["SVG 内容滤镜\n位移区域跟随玻璃"]
+  M -->|"无"| C{"命中 Chromium 路径？"}
+  C -->|"是"| B["实时背景滤镜\nbackdrop-filter 引用 SVG"]
+  C -->|"否"| F["降级显示\n磨砂、填色与高光"]
+  D --> R["叠加表面与前景控件\n检查可读性和实际效果"]
+  S --> R
+  B --> R
+  F --> R

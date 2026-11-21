@@ -1,0 +1,24 @@
+sequenceDiagram
+  accTitle: Glisse Switch 的受控状态与弹簧动画
+  accDescr: 按下与移动更新视觉目标，松开触发业务回调，父组件写回 checked；逐帧绘制通过 DOM 和透镜更新完成。
+  autonumber
+  participant U as 用户与指针
+  participant S as Switch 与弹簧
+  participant R as React 父组件
+  R->>S: checked 与 onCheckedChange
+  U->>S: pointerdown
+  S->>S: 捕获指针，设置抬起目标
+  loop 仍在运动的帧
+    S->>S: requestAnimationFrame 推进弹簧
+    S->>S: 更新 transform、透明度与透镜
+  end
+  U->>S: pointermove
+  S->>S: 根据位移更新位置目标
+  U->>S: pointerup
+  S->>S: 算出目标开关值，开始回落
+  S->>R: onCheckedChange(next)
+  R->>R: 更新业务状态
+  R->>S: 新 checked
+  S->>S: 对齐最终位置和颜色
+  Note over S,R: 回调后不写回 checked，受控值仍是旧值
+  Note over U,S: 减少动态效果偏好下，弹簧直接到目标

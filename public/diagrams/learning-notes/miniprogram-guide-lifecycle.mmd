@@ -1,0 +1,31 @@
+sequenceDiagram
+  accTitle: 小程序引导气泡的显示与关闭时序
+  accDescr: 页面准备好后先检查关闭记录和添加状态，再测量窗口与胶囊；关闭、离开和尺寸变化会让旧异步结果失效。
+  autonumber
+  participant P as 页面生命周期
+  participant L as 引导逻辑
+  participant W as 微信接口与视图
+  P->>L: onLoad
+  L->>W: 读取本地关闭记录
+  W-->>L: dismissed 状态
+  P->>L: onReady，或再次 onShow
+  L->>L: 生成本轮编号，隐藏旧气泡
+  alt 已关闭本轮引导
+    L->>L: 保持隐藏
+  else 未关闭
+    L->>W: checkIsAddedToMyMiniProgram
+    W-->>L: added 或调用失败
+    L->>L: 检查编号、页面可见性与 added
+    opt 当前有效且尚未添加
+      L->>W: 读取窗口与胶囊矩形
+      L->>L: 统一坐标、计算边界与箭头
+      L->>W: setData 更新位置和可见性
+      L->>W: 测量实际高度，溢出时隐藏
+    end
+  end
+  P->>L: 用户关闭
+  L->>L: 使旧回调失效，本页记为已关闭
+  L->>W: 立即隐藏，保存关闭记录
+  Note over L,W: 关闭提示不等于已经添加
+  P->>L: onResize / onHide / onUnload
+  L->>L: 重算，或使旧异步结果失效

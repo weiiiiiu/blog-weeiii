@@ -11,9 +11,11 @@ description: 用组件图和编辑时序图拆解 Next AI Draw.io，学习 stdio
 draft: false
 ---
 
+> 原文链接：[AI 绘图工具介绍](https://mp.weixin.qq.com/s/a5Bm1VeQ40pxkxTX-fHjZw)
+
 让 AI 画一张图，难点不只在第一版。人把一个框拖走后，AI 下一轮还能保留这个位置吗？“把这个框改名”怎样定位到正确节点？画布已经变了，为什么磁盘里的源文件仍然是旧版？
 
-这篇笔记从[原文的 AI 绘图演示](https://mp.weixin.qq.com/s/a5Bm1VeQ40pxkxTX-fHjZw)出发，沿着一次局部编辑追踪数据。阅读重点是：**自然语言怎样变成可编辑的图，以及人和 AI 怎样在同一份文档上继续修改。**
+沿着原文演示的一次局部编辑追踪数据，可以理解两个问题：**自然语言怎样变成可编辑的图，以及人和 AI 怎样在同一份文档上继续修改。**
 
 本文讨论 MCP 使用方式。工具行为对照 [Next AI Draw.io 源码快照 `9534a668`](https://github.com/DayuanJiang/next-ai-draw-io/tree/9534a668e3bd53f9c08aa5b8d2d77f409ccd09d4/packages/mcp-server)；示例用于理解协议和数据结构，不把源码推导当成一次实际绘图实测。后续版本的参数应以客户端发现的工具定义为准。
 
