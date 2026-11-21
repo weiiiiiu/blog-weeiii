@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 900 520" style="background:#ffffff;max-width:900px;" role="img" aria-labelledby="overview-title overview-desc">
+<title id="overview-title">一张图看懂：DeepSeek Harness 怎么办工单</title>
+<desc id="overview-desc">客户提工单后，模型想下一步查什么，Harness 调工具去查订单、权益和开通任务，找到断在开通环节，按规程建议补开通，经人审批后由权限服务真正执行，最后再查权益确认生效。</desc>
+<style>
+  .box{fill:#f2f5f8;stroke:#596675;stroke-width:1.5px;}
+  .box-hl{fill:#e3f0f7;stroke:#2f6f8f;stroke-width:2px;}
+  .t{font-family:Arial,PingFang SC,Microsoft YaHei,sans-serif;font-size:19px;font-weight:bold;fill:#17212d;text-anchor:middle;}
+  .s{font-family:Arial,PingFang SC,Microsoft YaHei,sans-serif;font-size:15px;fill:#4a5a6a;text-anchor:middle;}
+  .rl{font-family:Arial,PingFang SC,Microsoft YaHei,sans-serif;font-size:17px;font-weight:bold;fill:#596675;}
+  .title{font-family:Arial,PingFang SC,Microsoft YaHei,sans-serif;font-size:22px;font-weight:bold;fill:#17212d;text-anchor:middle;}
+  .loop{font-family:Arial,PingFang SC,Microsoft YaHei,sans-serif;font-size:16px;fill:#596675;text-anchor:middle;}
+  .note{font-family:Arial,PingFang SC,Microsoft YaHei,sans-serif;font-size:17px;fill:#17212d;text-anchor:middle;}
+  .arrow{stroke:#596675;stroke-width:2px;fill:none;}
+</style>
+<defs>
+  <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M 0 0 L 10 5 L 0 10 z" fill="#596675"/>
+  </marker>
+</defs>
+
+<text class="title" x="450" y="28">一张图看懂：DeepSeek Harness 怎么办工单</text>
+
+<text class="rl" x="20" y="62">① 查</text>
+<g>
+  <rect class="box" x="20" y="72" width="200" height="64" rx="10"/>
+  <text class="t" x="120" y="100">客户提工单</text>
+  <text class="s" x="120" y="122">“付了钱还是免费版”</text>
+  <rect class="box" x="240" y="72" width="200" height="64" rx="10"/>
+  <text class="t" x="340" y="100">模型想</text>
+  <text class="s" x="340" y="122">下一步查什么</text>
+  <rect class="box" x="460" y="72" width="200" height="64" rx="10"/>
+  <text class="t" x="560" y="100">Harness 跑腿</text>
+  <text class="s" x="560" y="122">调工具去查</text>
+  <rect class="box" x="680" y="72" width="200" height="64" rx="10"/>
+  <text class="t" x="780" y="100">工具去查</text>
+  <text class="s" x="780" y="122">订单 · 权益 · 任务</text>
+  <path class="arrow" d="M220 104 H240" marker-end="url(#ah)"/>
+  <path class="arrow" d="M440 104 H460" marker-end="url(#ah)"/>
+  <path class="arrow" d="M660 104 H680" marker-end="url(#ah)"/>
+</g>
+
+<text class="loop" x="450" y="170">↺ 查完结果带回来，模型再定下一步：查一步，看一步，再定下一步</text>
+<path class="arrow" d="M780 136 V196 H120 V246" marker-end="url(#ah)"/>
+
+<text class="rl" x="20" y="236">② 查到什么</text>
+<g>
+  <rect class="box" x="20" y="248" width="200" height="64" rx="10"/>
+  <text class="t" x="120" y="276">订单已付未退</text>
+  <text class="s" x="120" y="298">ORD-10086</text>
+  <rect class="box" x="240" y="248" width="200" height="64" rx="10"/>
+  <text class="t" x="340" y="276">权益还是免费版</text>
+  <text class="s" x="340" y="298">ACCT-017 未生效</text>
+  <rect class="box" x="460" y="248" width="200" height="64" rx="10"/>
+  <text class="t" x="560" y="276">开通任务超时</text>
+  <text class="s" x="560" y="298">JOB-5002 失败</text>
+  <rect class="box-hl" x="680" y="248" width="200" height="64" rx="10"/>
+  <text class="t" x="780" y="276">断在开通环节</text>
+  <text class="s" x="780" y="298">不是订单的问题</text>
+  <path class="arrow" d="M220 280 H240" marker-end="url(#ah)"/>
+  <path class="arrow" d="M440 280 H460" marker-end="url(#ah)"/>
+  <path class="arrow" d="M660 280 H680" marker-end="url(#ah)"/>
+</g>
+
+<path class="arrow" d="M780 312 V356 H120 V386" marker-end="url(#ah)"/>
+
+<text class="rl" x="20" y="376">③ 怎么办</text>
+<g>
+  <rect class="box" x="20" y="388" width="200" height="64" rx="10"/>
+  <text class="t" x="120" y="416">建议补开通</text>
+  <text class="s" x="120" y="438">按规程 RB-ENT-001</text>
+  <rect class="box" x="240" y="388" width="200" height="64" rx="10"/>
+  <text class="t" x="340" y="416">人审批</text>
+  <text class="s" x="340" y="438">批了才能动手</text>
+  <rect class="box-hl" x="460" y="388" width="200" height="64" rx="10"/>
+  <text class="t" x="560" y="416">补开通</text>
+  <text class="s" x="560" y="438">权限服务真正执行</text>
+  <rect class="box" x="680" y="388" width="200" height="64" rx="10"/>
+  <text class="t" x="780" y="416">再查权益</text>
+  <text class="s" x="780" y="438">真生效了才算完</text>
+  <path class="arrow" d="M220 420 H240" marker-end="url(#ah)"/>
+  <path class="arrow" d="M440 420 H460" marker-end="url(#ah)"/>
+  <path class="arrow" d="M660 420 H680" marker-end="url(#ah)"/>
+</g>
+
+<text class="note" x="450" y="500">记住：模型只动脑，不办事 —— 真正开通套餐的是公司权限服务，不是模型一句话。</text>
+</svg>
