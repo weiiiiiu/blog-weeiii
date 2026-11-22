@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 900 460" style="background:#ffffff;max-width:900px;" role="img" aria-labelledby="overview-title overview-desc">
+<title id="overview-title">一次语音问答走过哪些协议</title>
+<desc id="overview-desc">用户对平板说一句话：平板录音经 WebSocket 发文字流到 Spark，ASR 转文字后 RAG 检索，模型生成答案经 SSE 一字字推回，TTS 合成语音再经 WebSocket 回传平板播放。内部调用走 HTTP 或 gRPC。</desc>
+<style>
+  .box{fill:#f2f5f8;stroke:#596675;stroke-width:1.5px;}
+  .box-hl{fill:#e3f0f7;stroke:#2f6f8f;stroke-width:2px;}
+  .t{font-family:Arial,PingFang SC,Microsoft YaHei,sans-serif;font-size:19px;font-weight:bold;fill:#17212d;text-anchor:middle;}
+  .s{font-family:Arial,PingFang SC,Microsoft YaHei,sans-serif;font-size:15px;fill:#4a5a6a;text-anchor:middle;}
+  .rl{font-family:Arial,PingFang SC,Microsoft YaHei,sans-serif;font-size:17px;font-weight:bold;fill:#596675;}
+  .title{font-family:Arial,PingFang SC,Microsoft YaHei,sans-serif;font-size:22px;font-weight:bold;fill:#17212d;text-anchor:middle;}
+  .note{font-family:Arial,PingFang SC,Microsoft YaHei,sans-serif;font-size:17px;fill:#17212d;text-anchor:middle;}
+  .arrow{stroke:#596675;stroke-width:2px;fill:none;}
+</style>
+<defs>
+  <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M 0 0 L 10 5 L 0 10 z" fill="#596675"/>
+  </marker>
+</defs>
+
+<text class="title" x="450" y="28">一次语音问答走过哪些协议</text>
+
+<text class="rl" x="20" y="62">① 问</text>
+<g>
+  <rect class="box" x="20" y="72" width="160" height="64" rx="10"/>
+  <text class="t" x="100" y="100">平板录音</text>
+  <text class="s" x="100" y="122">按住说话</text>
+  <rect class="box-hl" x="200" y="72" width="160" height="64" rx="10"/>
+  <text class="t" x="280" y="100">WebSocket</text>
+  <text class="s" x="280" y="122">发 ASR 文字流</text>
+  <rect class="box" x="380" y="72" width="160" height="64" rx="10"/>
+  <text class="t" x="460" y="100">Spark ASR</text>
+  <text class="s" x="460" y="122">语音转文字</text>
+  <rect class="box" x="560" y="72" width="160" height="64" rx="10"/>
+  <text class="t" x="640" y="100">RAG 检索</text>
+  <text class="s" x="640" y="122">向量 + 重排取前 5</text>
+  <rect class="box" x="740" y="72" width="140" height="64" rx="10"/>
+  <text class="t" x="810" y="100">模型生成</text>
+  <text class="s" x="810" y="122">温度 0.2</text>
+  <path class="arrow" d="M180 104 H200" marker-end="url(#ah)"/>
+  <path class="arrow" d="M360 104 H380" marker-end="url(#ah)"/>
+  <path class="arrow" d="M540 104 H560" marker-end="url(#ah)"/>
+  <path class="arrow" d="M720 104 H740" marker-end="url(#ah)"/>
+</g>
+
+<text class="rl" x="20" y="180">② 答</text>
+<g>
+  <rect class="box-hl" x="20" y="190" width="200" height="64" rx="10"/>
+  <text class="t" x="120" y="218">SSE 流式回答案</text>
+  <text class="s" x="120" y="240">一字字推回平板</text>
+  <rect class="box" x="240" y="190" width="200" height="64" rx="10"/>
+  <text class="t" x="340" y="218">TTS 合成</text>
+  <text class="s" x="340" y="240">CosyVoice2 出声</text>
+  <rect class="box-hl" x="460" y="190" width="200" height="64" rx="10"/>
+  <text class="t" x="560" y="218">WebSocket 回传</text>
+  <text class="s" x="560" y="240">音频流</text>
+  <rect class="box" x="680" y="190" width="200" height="64" rx="10"/>
+  <text class="t" x="780" y="218">平板播放</text>
+  <text class="s" x="780" y="240">边收边播</text>
+  <path class="arrow" d="M220 222 H240" marker-end="url(#ah)"/>
+  <path class="arrow" d="M440 222 H460" marker-end="url(#ah)"/>
+  <path class="arrow" d="M660 222 H680" marker-end="url(#ah)"/>
+</g>
+
+<text class="note" x="450" y="310">服务内部互相调：HTTP / gRPC（问一次答一次就够了）</text>
+<text class="note" x="450" y="342">设备上报、传感器：MQTT；音视频通话：WebRTC</text>
+<text class="note" x="450" y="392">选协议看方向：单向流用 SSE，双向流用 WebSocket，问一次答一次用 HTTP</text>
+</svg>
