@@ -1,0 +1,13 @@
+flowchart LR
+    subgraph 问["① 问"]
+        A[平板录音<br/>按住说话] --> B[WebSocket<br/>发 ASR 文字流]
+        B --> C[Spark ASR<br/>语音转文字]
+        C --> D[RAG 检索<br/>向量 + 重排取前 5]
+        D --> E[模型生成<br/>温度 0.2]
+    end
+    subgraph 答["② 答"]
+        E --> F[SSE 流式回答案<br/>一字字推回平板]
+        F --> G[TTS 合成<br/>CosyVoice2 出声]
+        G --> H[WebSocket 回传<br/>音频流]
+        H --> I[平板播放<br/>边收边播]
+    end
